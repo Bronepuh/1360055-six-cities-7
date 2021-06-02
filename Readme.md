@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Денис Вяткин](https://up.htmlacademy.ru/react/7/user/1360055).
-* Наставник: `Неизвестно`.
+* Наставник: [Владислав Зубко](https://htmlacademy.ru/profile/whatislove).
 
 ---
 
