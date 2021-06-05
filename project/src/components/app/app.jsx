@@ -4,9 +4,9 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Main from '../main/main';
 import SingIn from '../sign-in/sign-in';
-import Favorites from '..//favorites/favorites';
+import Favorites from '../favorites/favorites';
 import Room from '../room/room';
-import Error404 from '../error-404/error-404';
+import Error404 from '../not-found/not-found';
 
 
 function App(props) {

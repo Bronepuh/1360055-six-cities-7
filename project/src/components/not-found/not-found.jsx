@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
-function Error404() {
+function NotFound() {
 
   return (
     <div className="container">
@@ -10,9 +11,9 @@ function Error404() {
         <br />
         <small>Page not found</small>
       </h1>
-      <Link to="/">Go to main page</Link>
+      <Link to={AppRoute.MAIN}>Go to main page</Link>
     </div>
   );
 }
 
-export default Error404;
+export default NotFound;
