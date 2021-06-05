@@ -1,11 +1,12 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route, BrowserRouter, Link } from 'react-router-dom';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Main from '../main/main';
 import SingIn from '../sign-in/sign-in';
 import Favorites from '..//favorites/favorites';
 import Room from '../room/room';
+import Error404 from '../error-404/error-404';
 
 
 function App(props) {
@@ -23,21 +24,12 @@ function App(props) {
         <Route exact path={AppRoute.FAVORITES}>
           <Favorites />
         </Route>
-        <Route exact path={AppRoute.ROOM}>
+        <Route exact path={AppRoute.ROOM_$ID}>
           <Room />
         </Route>
-        <Route
-          render = {() => (
-            <Fragment>
-              <h1>
-                404.
-                <br />
-                <small>Page not found</small>
-              </h1>
-              <Link to="/">Go to main page</Link>
-            </Fragment>
-          )}
-        />
+        <Route>
+          <Error404 />
+        </Route>
       </Switch>
     </BrowserRouter>
   );

@@ -1,6 +1,8 @@
-export const AppRoute = {
+const AppRoute = {
   MAIN: '/',
   SIGN_IN: '/login',
   FAVORITES: '/favorites',
-  ROOM: '/offer/:id',
+  ROOM_$ID: '/offer/:id',
 };
+
+export { AppRoute };
