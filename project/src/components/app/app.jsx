@@ -8,24 +8,23 @@ import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import Error404 from '../not-found/not-found';
 
-
 function App(props) {
-  const { cardsCount } = props;
+  const { cardsCount, offers } = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <Main cardsCount={cardsCount} />
+          <Main cardsCount={cardsCount} offers={offers}/>
         </Route>
         <Route exact path={AppRoute.SIGN_IN}>
           <SingIn />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <Favorites />
+          <Favorites offers={offers}/>
         </Route>
         <Route exact path={AppRoute.ROOM_$ID}>
-          <Room />
+          <Room offers={offers}/>
         </Route>
         <Route>
           <Error404 />
