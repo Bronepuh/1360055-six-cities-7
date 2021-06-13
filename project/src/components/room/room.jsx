@@ -1,5 +1,6 @@
 import React from 'react';
 import ReviewsForm from '../reviews-form/reviews-form';
+import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { getStarRaiting } from '../../common';
 
@@ -8,12 +9,11 @@ function Room(props) {
 
   const params = useParams();
   const id = params.id;
-  const offer = offers.find(function (offer) {
-    return String(offer.id) === id;
-  })
+
+  const offer = offers.find((element) => String(element.id) === id);
 
   const propertyInsideItems = offer.goods.map((good, idx) =>
-    <li className="property__inside-item" key={idx.toString()}>{good}</li>
+    <li className="property__inside-item" key={idx.toString()}>{good}</li>,
   );
 
   return (
@@ -75,8 +75,7 @@ function Room(props) {
               {offer.isPremium &&
                 <div className="property__mark">
                   <span>Premium</span>
-                </div>
-              }
+                </div>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {offer.title}
@@ -129,8 +128,7 @@ function Room(props) {
                   </span>
                   <span className="property__user-status">
                     {offer.host.isPro &&
-                      'Rro'
-                    }
+                      'Rro'}
                   </span>
                 </div>
                 <div className="property__description">
@@ -168,7 +166,7 @@ function Room(props) {
                     </div>
                   </li>
                 </ul>
-                  <ReviewsForm />
+                <ReviewsForm />
               </section>
             </div>
           </div>
@@ -280,5 +278,9 @@ function Room(props) {
     </div>
   );
 }
+
+Room.propTypes = {
+  offers: PropTypes.array,
+};
 
 export default Room;

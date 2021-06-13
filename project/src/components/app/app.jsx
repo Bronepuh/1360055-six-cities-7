@@ -9,13 +9,13 @@ import Room from '../room/room';
 import Error404 from '../not-found/not-found';
 
 function App(props) {
-  const { cardsCount, offers } = props;
+  const { offers } = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <Main cardsCount={cardsCount} offers={offers}/>
+          <Main offers={offers}/>
         </Route>
         <Route exact path={AppRoute.SIGN_IN}>
           <SingIn />
@@ -35,7 +35,7 @@ function App(props) {
 }
 
 App.propTypes = {
-  cardsCount: PropTypes.number,
+  offers: PropTypes.array,
 };
 
 export default App;

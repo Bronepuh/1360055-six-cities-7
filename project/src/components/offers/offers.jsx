@@ -1,14 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Card from '../card/card';
 
 function Offers(props) {
   const { offers } = props;
 
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div className='cities__places-list places__list tabs__content'>
       {offers.map((offer, idx) => <Card key={idx.toString()} offer={offer} />)}
     </div>
   );
 }
+
+Offers.propTypes = {
+  offers: PropTypes.array,
+};
 
 export default Offers;

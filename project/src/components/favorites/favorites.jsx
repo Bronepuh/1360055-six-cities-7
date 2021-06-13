@@ -1,4 +1,5 @@
 import { React } from 'react';
+import PropTypes from 'prop-types';
 import FavoriteList from '../favorite-list/favotite-list';
 
 function Favorites(props) {
@@ -47,5 +48,9 @@ function Favorites(props) {
     </div>
   );
 }
+
+Favorites.propTypes = {
+  offers: PropTypes.array,
+};
 
 export default Favorites;

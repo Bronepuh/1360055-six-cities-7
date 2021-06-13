@@ -6,14 +6,4 @@ const AppRoute = {
   OFFER: '/offer/',
 };
 
-const Citys = {
-  Paris: [],
-  Cologne: [],
-  Brussels: [],
-  Amsterdam: [],
-  Hamburg: [],
-  Dusseldorf: [],
-}
-
-
 export { AppRoute };

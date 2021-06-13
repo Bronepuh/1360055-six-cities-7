@@ -4,7 +4,6 @@ import Offers from '../offers/offers';
 
 function WelcomeScreen(props) {
   const {offers} = props;
-  
   return (
     <div className="page page--gray page--main" id="root">
       <header className="header">
@@ -106,7 +105,7 @@ function WelcomeScreen(props) {
 }
 
 WelcomeScreen.propTypes = {
-  cardsCount: PropTypes.number,
+  offers: PropTypes.array,
 };
 
 export default WelcomeScreen;
