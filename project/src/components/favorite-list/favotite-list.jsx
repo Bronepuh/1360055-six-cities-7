@@ -2,15 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getStarRaiting } from '../../common';
 
-function FavoriteList(props) {
-  const { offers } = props;
-  const citys = [];
-
+const citys = [];
+const getCitys = function (offers) {
   for (let i = 0; i < offers.length; i++) {
     if (!citys.includes(offers[i].city.name) && offers[i].isFavorite) {
       citys.push(offers[i].city.name);
     }
   }
+};
+
+function FavoriteList(props) {
+  const { offers } = props;
+  getCitys(offers);
 
   if (citys.length === 0) {
     return (<section className='favorites favorites--empty'>
@@ -37,9 +40,9 @@ function FavoriteList(props) {
             </div>
             <div className='favorites__places'>
 
-              {offers.map((offer, idx1) => {
+              {offers.map((offer) => {
                 if (offer.city.name === city) {
-                  return (<article className='favorites__card place-card' key={idx1.toString()}>
+                  return (<article className='favorites__card place-card' key={offer.id}>
                     <div className='favorites__image-wrapper place-card__image-wrapper'>
                       <a href='#'>
                         <img className='place-card__image' src={offer.previewImage} width='150' height='110' alt='Place image' />
@@ -79,9 +82,7 @@ function FavoriteList(props) {
 }
 
 FavoriteList.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape([
-    { city: PropTypes.string },
-  ])),
+  offers: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default FavoriteList;

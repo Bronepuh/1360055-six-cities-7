@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { getStarRaiting } from '../../common';
+import offerProps from '../../components/offers/offer.prop';
 
 function Card(props) {
   const { offer } = props;
@@ -47,7 +47,7 @@ function Card(props) {
 }
 
 Card.propTypes = {
-  offer: PropTypes.object,
+  offer: offerProps,
 };
 
 export default Card;

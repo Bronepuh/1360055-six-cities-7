@@ -13,7 +13,7 @@ function Offers(props) {
 }
 
 Offers.propTypes = {
-  offers: PropTypes.array,
+  offers: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default Offers;

@@ -80,7 +80,7 @@ const offers = [
       name: 'Cologne',
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
-    goods: ['Heating', 'Kitchen', 'Washing machine', 'Coffee machine', 'Wi-Fi'],
+    goods: ['Heating', 'Kitchen', 'Washing machine', 'Coffee machine', 'Wi-Fi', 'nishtjak-1', 'nishtjak-2', 'nishtjak-3', 'nishtjak-4', 'nishtjak-5'],
     host: {
       avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
       id: 2,
