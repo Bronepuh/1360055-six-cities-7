@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Offers from '../offers/offers';
+import offerProps from '../offers/offer.props';
 
 function WelcomeScreen(props) {
   const {offers} = props;
@@ -105,7 +106,7 @@ function WelcomeScreen(props) {
 }
 
 WelcomeScreen.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object),
+  offers: PropTypes.arrayOf(offerProps),
 };
 
 export default WelcomeScreen;

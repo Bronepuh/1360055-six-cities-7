@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getStarRaiting } from '../../common';
+import offerProps from '../offers/offer.props';
 
 const citys = [];
 const getCitys = function (offers) {
@@ -9,6 +10,8 @@ const getCitys = function (offers) {
       citys.push(offers[i].city.name);
     }
   }
+
+  return citys;
 };
 
 function FavoriteList(props) {
@@ -63,7 +66,7 @@ function FavoriteList(props) {
                       </div>
                       <div className='place-card__rating rating'>
                         <div className='place-card__stars rating__stars'>
-                          <span style={{ width: getStarRaiting(offer) }}></span>
+                          <span style={{ width: `${getStarRaiting(offer.rating)}%`}}></span>
                           <span className='visually-hidden'>Raiting</span>
                         </div>
                       </div>
@@ -82,7 +85,7 @@ function FavoriteList(props) {
 }
 
 FavoriteList.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object),
+  offers: PropTypes.arrayOf(offerProps),
 };
 
 export default FavoriteList;

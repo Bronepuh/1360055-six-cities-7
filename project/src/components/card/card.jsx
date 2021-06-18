@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { getStarRaiting } from '../../common';
-import offerProps from '../../components/offers/offer.prop';
+import offerProps from '../offers/offer.props';
 
 function Card(props) {
   const { offer } = props;
@@ -33,7 +33,7 @@ function Card(props) {
         </div>
         <div className='place-card__rating rating'>
           <div className='place-card__stars rating__stars'>
-            <span style={{ width: getStarRaiting(offer) }}></span>
+            <span style={{ width: `${getStarRaiting(offer.rating)}%`}}></span>
             <span className='visually-hidden'>Rating</span>
           </div>
         </div>

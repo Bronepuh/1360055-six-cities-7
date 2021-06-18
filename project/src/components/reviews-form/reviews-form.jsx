@@ -1,9 +1,7 @@
 import { React, useState } from 'react';
 
 function ReviewsForm() {
-  const state = useState();
-  let review = state[0];
-  const setReview = state[1];
+  const [review, setReview] = useState();
 
   return (
     <form className='reviews__form form' action='#' method='post' onSubmit={(evt) => { evt.preventDefault(); }}>
@@ -44,7 +42,7 @@ function ReviewsForm() {
           </svg>
         </label>
       </div>
-      <textarea className='reviews__textarea form__textarea' id='review' name='review' placeholder='Tell how was your stay, what you like and what can be improved' value={review} onChange={(evt) => { setReview(review = evt.target.value); }}>
+      <textarea className='reviews__textarea form__textarea' id='review' name='review' placeholder='Tell how was your stay, what you like and what can be improved' value={review} onChange={(evt) => { setReview(evt.target.value); }}>
       </textarea>
       <div className='reviews__button-wrapper'>
         <p className='reviews__help'>
