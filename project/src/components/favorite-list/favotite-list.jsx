@@ -85,7 +85,7 @@ function FavoriteList(props) {
 }
 
 FavoriteList.propTypes = {
-  offers: PropTypes.arrayOf(offerProps),
+  offers: PropTypes.arrayOf(offerProps).isRequired,
 };
 
 export default FavoriteList;
