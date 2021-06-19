@@ -52,7 +52,7 @@ function Favorites(props) {
 }
 
 Favorites.propTypes = {
-  offers: PropTypes.arrayOf(offerProps).isRequired,
+  offers: PropTypes.arrayOf(offerProps.isRequired).isRequired,
 };
 
 export default Favorites;

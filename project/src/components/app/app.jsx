@@ -36,7 +36,7 @@ function App(props) {
 }
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(offerProps).isRequired,
+  offers: PropTypes.arrayOf(offerProps.isRequired).isRequired,
 };
 
 export default App;

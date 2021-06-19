@@ -283,7 +283,7 @@ function Room(props) {
 }
 
 Room.propTypes = {
-  offers: PropTypes.arrayOf(offerProps).isRequired,
+  offers: PropTypes.arrayOf(offerProps.isRequired).isRequired,
 };
 
 export default Room;

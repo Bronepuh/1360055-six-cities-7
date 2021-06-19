@@ -106,7 +106,7 @@ function WelcomeScreen(props) {
 }
 
 WelcomeScreen.propTypes = {
-  offers: PropTypes.arrayOf(offerProps).isRequired,
+  offers: PropTypes.arrayOf(offerProps.isRequired).isRequired,
 };
 
 export default WelcomeScreen;

@@ -14,7 +14,7 @@ function Offers(props) {
 }
 
 Offers.propTypes = {
-  offers: PropTypes.arrayOf(offerProps).isRequired,
+  offers: PropTypes.arrayOf(offerProps.isRequired).isRequired,
 };
 
 export default Offers;
