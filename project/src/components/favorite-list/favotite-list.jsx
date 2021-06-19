@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { getStarRaiting } from '../../common';
 import offerProps from '../offers/offer.props';
 
-const getcities = function (offers) {
+const getCities = function (offers) {
   const cities = [];
   for (let i = 0; i < offers.length; i++) {
     if (!cities.includes(offers[i].city.name) && offers[i].isFavorite) {
@@ -16,7 +16,7 @@ const getcities = function (offers) {
 
 function FavoriteList(props) {
   const { offers } = props;
-  const cities = getcities(offers);
+  const cities = getCities(offers);
 
   if (cities.length === 0) {
     return (<section className='favorites favorites--empty'>
