@@ -3,22 +3,22 @@ import PropTypes from 'prop-types';
 import { getStarRaiting } from '../../common';
 import offerProps from '../offers/offer.props';
 
-const citys = [];
-const getCitys = function (offers) {
+const getcities = function (offers) {
+  const cities = [];
   for (let i = 0; i < offers.length; i++) {
-    if (!citys.includes(offers[i].city.name) && offers[i].isFavorite) {
-      citys.push(offers[i].city.name);
+    if (!cities.includes(offers[i].city.name) && offers[i].isFavorite) {
+      cities.push(offers[i].city.name);
     }
   }
 
-  return citys;
+  return cities;
 };
 
 function FavoriteList(props) {
   const { offers } = props;
-  getCitys(offers);
+  const cities = getcities(offers);
 
-  if (citys.length === 0) {
+  if (cities.length === 0) {
     return (<section className='favorites favorites--empty'>
       <h1 className='visually-hidden'>Favorites (empty)</h1>
       <div className='favorites__status-wrapper'>
@@ -32,7 +32,7 @@ function FavoriteList(props) {
       <h1 className='favorites__title'>Saved listing</h1>
       <ul className='favorites__list'>
 
-        {citys.map((city, idx) => (
+        {cities.map((city, idx) => (
           <li className='favorites__locations-items' key={idx.toString()}>
             <div className='favorites__locations locations locations--current'>
               <div className='locations__item'>
@@ -66,7 +66,7 @@ function FavoriteList(props) {
                       </div>
                       <div className='place-card__rating rating'>
                         <div className='place-card__stars rating__stars'>
-                          <span style={{ width: `${getStarRaiting(offer.rating)}%`}}></span>
+                          <span style={{ width: `${getStarRaiting(offer.rating)}%` }}></span>
                           <span className='visually-hidden'>Raiting</span>
                         </div>
                       </div>

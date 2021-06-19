@@ -47,7 +47,7 @@ function Card(props) {
 }
 
 Card.propTypes = {
-  offer: offerProps,
+  offer: offerProps.isRequired,
 };
 
 export default Card;
