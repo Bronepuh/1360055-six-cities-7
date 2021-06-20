@@ -4,8 +4,8 @@ const offerProps = PropTypes.shape({
   bedrooms: PropTypes.number.isRequired,
   city: PropTypes.shape({
     location: PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
+      lat: PropTypes.number.isRequired,
+      lng: PropTypes.number.isRequired,
       zoom: PropTypes.number.isRequired,
     }),
     name: PropTypes.string.isRequired,
@@ -18,8 +18,8 @@ const offerProps = PropTypes.shape({
   isFavorite: PropTypes.bool.isRequired,
   isPremium: PropTypes.bool.isRequired,
   location: PropTypes.shape({
-    latitude: PropTypes.number.isRequired,
-    longitude: PropTypes.number.isRequired,
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired,
     zoom: PropTypes.number.isRequired,
   }),
   maxAdults: PropTypes.number.isRequired,

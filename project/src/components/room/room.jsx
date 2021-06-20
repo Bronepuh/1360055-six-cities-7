@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReviewsForm from '../reviews-form/reviews-form';
 import { useParams } from 'react-router-dom';
-import { getStarRaiting } from '../../common';
+import { getStarRating } from '../../common';
 import { AppRoute } from '../../const';
 import offerProps from '../offers/offer.props';
 
@@ -92,7 +92,7 @@ function Room(props) {
               </div>
               <div className='property__rating rating'>
                 <div className='property__stars rating__stars'>
-                  <span style={{ width: `${getStarRaiting(offer.rating)}%`}}></span>
+                  <span style={{ width: `${getStarRating(offer.rating)}%`}}></span>
                   <span className='visually-hidden'>Rating</span>
                 </div>
                 <span className='property__rating-value rating__value'>{offer.rating}</span>
@@ -200,7 +200,7 @@ function Room(props) {
                   </div>
                   <div className='place-card__rating rating'>
                     <div className='place-card__stars rating__stars'>
-                      <span style={{ width: `${getStarRaiting(offer.rating)}%`}}></span>
+                      <span style={{ width: `${getStarRating(offer.rating)}%`}}></span>
                       <span className='visually-hidden'>Rating</span>
                     </div>
                   </div>
@@ -232,7 +232,7 @@ function Room(props) {
                   </div>
                   <div className='place-card__rating rating'>
                     <div className='place-card__stars rating__stars'>
-                      <span style={{ width: `${getStarRaiting(offer.rating)}%`}}></span>
+                      <span style={{ width: `${getStarRating(offer.rating)}%`}}></span>
                       <span className='visually-hidden'>Rating</span>
                     </div>
                   </div>
@@ -264,7 +264,7 @@ function Room(props) {
                   </div>
                   <div className='place-card__rating rating'>
                     <div className='place-card__stars rating__stars'>
-                      <span style={{ width: `${getStarRaiting(offer.rating)}%`}}></span>
+                      <span style={{ width: `${getStarRating(offer.rating)}%`}}></span>
                       <span className='visually-hidden'>Rating</span>
                     </div>
                   </div>
