@@ -1,10 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import 'leaflet/dist/leaflet.css';
 import Offers from '../offers/offers';
 import offerProps from '../offers/offer.props';
+import Map from '../../components/map/map';
 
 function WelcomeScreen(props) {
-  const {offers} = props;
+  const { offers } = props;
+
+  const city = {
+    lat: 52.38333,
+    lng: 4.9,
+  };
+
   return (
     <div className='page page--gray page--main' id='root'>
       <header className='header'>
@@ -93,10 +101,12 @@ function WelcomeScreen(props) {
                   <li className='places__option' tabIndex='0'>Top rated first</li>
                 </ul>
               </form>
-              <Offers offers={offers}/>
+              <Offers offers={offers} />
             </section>
             <div className='cities__right-section'>
-              <section className='cities__map map'></section>
+              <section className='cities__map' id="map">
+                <Map city={city} offers={offers}/>
+              </section>
             </div>
           </div>
         </div>

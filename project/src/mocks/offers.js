@@ -5,8 +5,8 @@ const offers = [
     bedrooms: 3,
     city: {
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        lat: 52.370216,
+        lng: 4.895168,
         zoom: 10,
       },
       name: 'Amsterdam',
@@ -24,8 +24,8 @@ const offers = [
     isFavorite: false,
     isPremium: true,
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      lat: 52.3909553943508,
+      lng: 4.85309666406198,
       zoom: 8,
     },
     maxAdults: 4,
@@ -39,11 +39,11 @@ const offers = [
     bedrooms: 2,
     city: {
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        lat: 52.370216,
+        lng: 4.895168,
         zoom: 10,
       },
-      name: 'Brussels',
+      name: 'Amsterdam',
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Washing machine', 'Coffee machine', 'Wi-Fi'],
@@ -55,11 +55,11 @@ const offers = [
     },
     id: 1,
     images: ['img/1.png', 'img/2.png'],
-    isFavorite: true,
+    isFavorite: false,
     isPremium: false,
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      lat: 52.369553943508,
+      lng: 4.85309666406198,
       zoom: 8,
     },
     maxAdults: 3,
@@ -73,11 +73,11 @@ const offers = [
     bedrooms: 2,
     city: {
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        lat: 52.370216,
+        lng: 4.895168,
         zoom: 10,
       },
-      name: 'Cologne',
+      name: 'Amsterdam',
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Washing machine', 'Coffee machine', 'Wi-Fi', 'nishtjak-1', 'nishtjak-2', 'nishtjak-3', 'nishtjak-4', 'nishtjak-5'],
@@ -92,8 +92,8 @@ const offers = [
     isFavorite: true,
     isPremium: false,
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      lat: 52.3909553943508,
+      lng: 4.929309666406198,
       zoom: 8,
     },
     maxAdults: 3,
@@ -107,11 +107,11 @@ const offers = [
     bedrooms: 2,
     city: {
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        lat: 52.370216,
+        lng: 4.895168,
         zoom: 10,
       },
-      name: 'Cologne',
+      name: 'Amsterdam',
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Washing machine', 'Coffee machine', 'Wi-Fi'],
@@ -126,8 +126,8 @@ const offers = [
     isFavorite: true,
     isPremium: false,
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      lat: 52.3809553943508,
+      lng: 4.939309666406198,
       zoom: 8,
     },
     maxAdults: 3,

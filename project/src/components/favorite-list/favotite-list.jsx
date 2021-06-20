@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getStarRaiting } from '../../common';
+import { getStarRating } from '../../common';
 import offerProps from '../offers/offer.props';
 
 const getCities = function (offers) {
@@ -44,7 +44,7 @@ function FavoriteList(props) {
             <div className='favorites__places'>
 
               {offers.map((offer) => {
-                if (offer.city.name === city) {
+                if (offer.city.name === city && offer.isFavorite) {
                   return (<article className='favorites__card place-card' key={offer.id}>
                     <div className='favorites__image-wrapper place-card__image-wrapper'>
                       <a href='#'>
@@ -66,8 +66,8 @@ function FavoriteList(props) {
                       </div>
                       <div className='place-card__rating rating'>
                         <div className='place-card__stars rating__stars'>
-                          <span style={{ width: `${getStarRaiting(offer.rating)}%` }}></span>
-                          <span className='visually-hidden'>Raiting</span>
+                          <span style={{ width: `${getStarRating(offer.rating)}%` }}></span>
+                          <span className='visually-hidden'>Rating</span>
                         </div>
                       </div>
                       <h2 className='place-card__name'>
