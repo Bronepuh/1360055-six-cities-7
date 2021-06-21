@@ -1,3 +1,8 @@
+import leaflet from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
+const AVATAR_URL = 'https://i.pravatar.cc/128';
+
 const AppRoute = {
   MAIN: '/',
   SIGN_IN: '/login/',
@@ -6,24 +11,35 @@ const AppRoute = {
   OFFER: '/offer/',
 };
 
-const AmsterdamPoints = [
-  {
-    title: 'Саундвью',
-    lat: 52.3909553943508,
-    lng: 4.85309666406198,
-  }, {
-    title: 'Ферри Поинт',
-    lat: 52.369553943508,
-    lng: 4.85309666406198,
-  }, {
-    title: 'Бронкс',
-    lat: 52.3909553943508,
-    lng: 4.929309666406198,
-  }, {
-    title: 'Инвуд-Хилл',
-    lat: 52.3809553943508,
-    lng: 4.939309666406198,
-  },
-];
+const icon = leaflet.icon({
+  iconUrl: 'img/pin.svg',
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+});
 
-export { AppRoute, AmsterdamPoints };
+const commentGet = [{
+  comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+  date: '2019-05-08T14:13:56.569Z',
+  id: 1,
+  rating: 4,
+  user: {
+    avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
+    id: 4,
+    isPro: false,
+    name: 'Yoda',
+  },
+},
+{
+  comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+  date: '2019-06-08T14:13:56.569Z',
+  id: 2,
+  rating: 5,
+  user: {
+    avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
+    id: 4,
+    isPro: false,
+    name: 'R2D2',
+  },
+}];
+
+export { AppRoute, icon, commentGet };
