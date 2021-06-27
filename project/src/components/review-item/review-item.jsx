@@ -1,13 +1,10 @@
 import React from 'react';
-import { getStarRating } from '../../common';
-import reviewsItemProps from '../reviews-item/reviews-item.props';
+import { getStarRating, getDate } from '../../common';
+import reviewItemProps from '../review-item/review-item.props';
 
-function ReviewsItem(props) {
+function ReviewItem(props) {
   const { comment } = props;
-
-  const date = new Date(comment.date);
-  const year = date.getUTCFullYear().toString();
-  const month = date.toLocaleString('en', { month: 'long' });
+  const currentDate = getDate(comment);
 
   return (
     <li className='reviews__item'>
@@ -29,14 +26,14 @@ function ReviewsItem(props) {
         <p className='reviews__text'>
           {comment.comment}
         </p>
-        <time className='reviews__time' dateTime={comment.date}>{month} {year}</time>
+        <time className='reviews__time' dateTime={comment.date}>{currentDate.month} {currentDate.year}</time>
       </div>
     </li>
   );
 }
 
-ReviewsItem.propTypes = {
-  comment: reviewsItemProps.isRequired,
+ReviewItem.propTypes = {
+  comment: reviewItemProps.isRequired,
 };
 
-export default ReviewsItem;
+export default ReviewItem;

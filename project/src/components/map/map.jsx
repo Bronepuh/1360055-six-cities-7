@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import offerProps from '../offers/offer.props';
-import { icon } from '../../const';
+import { icon, iconActive } from '../../const';
 import useMap from '../../hooks/useMap';
 
-function Map(props) {
-  const { city, offers } = props;
+function Map({ city, offers, selectedPoint }) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -18,11 +17,17 @@ function Map(props) {
           .marker({
             lat: offer.location.lat,
             lng: offer.location.lng,
-          }, {icon})
+          },
+          {
+            icon: (offer.id === selectedPoint.id)
+              ? iconActive
+              : icon,
+          },
+          )
           .addTo(map);
       });
     }
-  }, [map, offers]);
+  }, [map, offers, selectedPoint]);
 
   return (
     <div style={{ height: '100%' }} ref={mapRef} />
@@ -36,6 +41,7 @@ Map.propTypes = {
     zoom: PropTypes.number,
   }),
   offers: PropTypes.arrayOf(offerProps.isRequired).isRequired,
+  selectedPoint: PropTypes.object,
 };
 
 export default Map;

@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useState} from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { AppRoute } from '../../const';
@@ -11,12 +11,17 @@ import offerProps from '../offers/offer.props';
 
 function App(props) {
   const { offers } = props;
+  const [currentPoint, setCurrentPoint] = useState({});
+
+  const getSelectedPoint = function(point) {
+    setCurrentPoint(point);
+  };
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <Main offers={offers}/>
+          <Main offers={offers} getSelectedPoint={getSelectedPoint}/>
         </Route>
         <Route exact path={AppRoute.SIGN_IN}>
           <SingIn />
@@ -25,7 +30,7 @@ function App(props) {
           <Favorites offers={offers}/>
         </Route>
         <Route exact path={AppRoute.ROOM_$ID}>
-          <Room offers={offers}/>
+          <Room offers={offers} currentPoint={currentPoint}/>
         </Route>
         <Route>
           <Error404 />

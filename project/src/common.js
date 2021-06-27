@@ -7,4 +7,16 @@ const getStarRating = (rating) => {
   return offerRatingInPercents;
 };
 
-export { getStarRating };
+const getDate = function (comment) {
+  const date = new Date(comment.date);
+  const year = date.getUTCFullYear().toString();
+  const month = date.toLocaleString('en', { month: 'long' });
+
+  return {
+    date,
+    year,
+    month,
+  };
+};
+
+export { getStarRating, getDate };

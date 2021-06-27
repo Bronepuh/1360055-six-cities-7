@@ -1,14 +1,20 @@
-import React from 'react';
+import { React, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { getStarRating } from '../../common';
 import offerProps from '../offers/offer.props';
 
-function Card(props) {
-  const { offer } = props;
+function Card({offer, cardHoverHandler}) {
+  const [state, setState] = useState({});
+
+  const onCardHover = () => {
+    setState(offer);
+    cardHoverHandler(state);
+  };
 
   return (
-    <article className='cities__place-card place-card'>
+    <article className='cities__place-card place-card' onMouseEnter={onCardHover}>
       {offer.isPremium &&
         <div className='place-card__mark'>
           <span>Premium</span>
@@ -33,7 +39,7 @@ function Card(props) {
         </div>
         <div className='place-card__rating rating'>
           <div className='place-card__stars rating__stars'>
-            <span style={{ width: `${getStarRating(offer.rating)}%`}}></span>
+            <span style={{ width: `${getStarRating(offer.rating)}%` }}></span>
             <span className='visually-hidden'>Rating</span>
           </div>
         </div>
@@ -48,6 +54,7 @@ function Card(props) {
 
 Card.propTypes = {
   offer: offerProps.isRequired,
+  cardHoverHandler: PropTypes.func,
 };
 
 export default Card;

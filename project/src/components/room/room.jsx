@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReviewsForm from '../reviews-form/reviews-form';
-import ReviewsList from '../reviews-list/reviews-list';
+import ReviewForm from '../review-form/review-form';
+import ReviewList from '../review-list/review-list';
 import { useParams } from 'react-router-dom';
 import { getStarRating } from '../../common';
 import { AppRoute } from '../../const';
@@ -15,20 +15,13 @@ const getOffer = function (offers, id) {
 };
 
 const getNeighbourhoodOffers = function (offers, offer) {
-  const newOffers = [];
-  for (let i = 0; i < offers.length; i++) {
-    if (offers[i] !== offer) {
-      newOffers.push(offers[i]);
-    }
-  }
+  const newOffers = offers.filter((el) => el.id !== offer.id);
   return newOffers;
 };
 
-function Room(props) {
-  const { offers } = props;
+function Room({offers, currentPoint}) {
   const { id } = useParams();
   const offer = getOffer(offers, id);
-
   const neighbourhoodOffers = getNeighbourhoodOffers(offers, offer);
 
   const propertyInsideItems = offer.goods.map((good) =>
@@ -161,13 +154,13 @@ function Room(props) {
               </div>
               <section className='property__reviews reviews'>
                 <h2 className='reviews__title'>Reviews &middot; <span className='reviews__amount'>{commentGet.length}</span></h2>
-                <ReviewsList comments={commentGet} />
-                <ReviewsForm />
+                <ReviewList comments={commentGet} />
+                <ReviewForm />
               </section>
             </div>
           </div>
           <section className='property__map map'>
-            <Map city={offer.city.location} offers={offers} />
+            <Map city={offer.city.location} offers={offers} selectedPoint={currentPoint}/>
           </section>
         </section>
         <div className='container'>
@@ -185,6 +178,7 @@ function Room(props) {
 
 Room.propTypes = {
   offers: PropTypes.arrayOf(offerProps.isRequired).isRequired,
+  currentPoint: PropTypes.object,
 };
 
 export default Room;

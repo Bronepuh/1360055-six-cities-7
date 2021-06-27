@@ -17,6 +17,12 @@ const icon = leaflet.icon({
   iconAnchor: [15, 30],
 });
 
+const iconActive = leaflet.icon({
+  iconUrl: 'img/pin-active.svg',
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+});
+
 const commentGet = [{
   comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
   date: '2019-05-08T14:13:56.569Z',
@@ -42,4 +48,4 @@ const commentGet = [{
   },
 }];
 
-export { AppRoute, icon, commentGet };
+export { AppRoute, icon, iconActive, commentGet };

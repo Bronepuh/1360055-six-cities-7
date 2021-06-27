@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const reviewsItemProps = PropTypes.shape({
+const reviewItemProps = PropTypes.shape({
   comment: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
@@ -13,4 +13,4 @@ const reviewsItemProps = PropTypes.shape({
   }),
 });
 
-export default reviewsItemProps;
+export default reviewItemProps;
