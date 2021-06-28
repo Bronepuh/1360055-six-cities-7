@@ -2,46 +2,35 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import offerProps from '../offers/offer.props';
+import offerType from '../offers/offer.type';
+import { icon, iconActive } from '../../const';
+import useMap from '../../hooks/useMap';
 
-function Map(props) {
-  const { city, offers } = props;
+function Map({ city, offers, selectedPoint }) {
   const mapRef = useRef(null);
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
-    const icon = leaflet.icon({
-      iconUrl: 'img/pin.svg',
-      iconSize: [30, 30],
-      iconAnchor: [15, 30],
-    });
-
-    const zoom = 12;
-    const map = leaflet.map('map',
-      {
-        center: city,
-        zoom: zoom,
-        zoomControl: false,
-        marker: true,
+    if (map) {
+      offers.forEach((offer) => {
+        leaflet
+          .marker({
+            lat: offer.location.lat,
+            lng: offer.location.lng,
+          },
+          {
+            icon: (selectedPoint && selectedPoint.id === offer.id)
+              ? iconActive
+              : icon,
+          },
+          )
+          .addTo(map);
       });
-    map.setView(city, zoom);
-
-    leaflet
-      .tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      })
-      .addTo(map);
-
-    offers.forEach((offer) => {
-      leaflet
-        .marker(offer.location, { icon })
-        .addTo(map);
-    });
-  });
+    }
+  }, [map, offers, selectedPoint]);
 
   return (
-    <div style={{ height: '100%' }} ref={mapRef}>
-
-    </div>
+    <div style={{ height: '100%' }} ref={mapRef} />
   );
 }
 
@@ -49,8 +38,10 @@ Map.propTypes = {
   city: PropTypes.shape({
     lat: PropTypes.number,
     lng: PropTypes.number,
+    zoom: PropTypes.number,
   }),
-  offers: PropTypes.arrayOf(offerProps.isRequired).isRequired,
+  offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
+  selectedPoint: PropTypes.object,
 };
 
 export default Map;

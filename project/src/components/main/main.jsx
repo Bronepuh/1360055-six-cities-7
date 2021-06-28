@@ -1,16 +1,22 @@
-import React from 'react';
+import {React, useState} from 'react';
 import PropTypes from 'prop-types';
 import 'leaflet/dist/leaflet.css';
 import Offers from '../offers/offers';
-import offerProps from '../offers/offer.props';
+import offerType from '../offers/offer.type';
 import Map from '../../components/map/map';
 
-function WelcomeScreen(props) {
-  const { offers } = props;
+function WelcomeScreen({offers}) {
+
+  const [selectedPoint, setSelectedPoint] = useState(null);
+
+  const handleListHover = function (offer) {
+    setSelectedPoint(offer);
+  };
 
   const city = {
     lat: 52.38333,
     lng: 4.9,
+    zoom: 12,
   };
 
   return (
@@ -101,11 +107,11 @@ function WelcomeScreen(props) {
                   <li className='places__option' tabIndex='0'>Top rated first</li>
                 </ul>
               </form>
-              <Offers offers={offers} />
+              <Offers offers={offers} onListHover={handleListHover}/>
             </section>
             <div className='cities__right-section'>
               <section className='cities__map' id="map">
-                <Map city={city} offers={offers}/>
+                <Map city={city} offers={offers} selectedPoint={selectedPoint}/>
               </section>
             </div>
           </div>
@@ -116,7 +122,7 @@ function WelcomeScreen(props) {
 }
 
 WelcomeScreen.propTypes = {
-  offers: PropTypes.arrayOf(offerProps.isRequired).isRequired,
+  offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
 };
 
 export default WelcomeScreen;

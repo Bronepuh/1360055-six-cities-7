@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getStarRating } from '../../common';
-import offerProps from '../offers/offer.props';
+import offerType from '../offers/offer.type';
 
 const getCities = function (offers) {
   const cities = [];
@@ -14,8 +14,7 @@ const getCities = function (offers) {
   return cities;
 };
 
-function FavoriteList(props) {
-  const { offers } = props;
+function FavoriteList({offers}) {
   const cities = getCities(offers);
 
   if (cities.length === 0) {
@@ -85,7 +84,7 @@ function FavoriteList(props) {
 }
 
 FavoriteList.propTypes = {
-  offers: PropTypes.arrayOf(offerProps.isRequired).isRequired,
+  offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
 };
 
 export default FavoriteList;

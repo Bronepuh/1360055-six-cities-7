@@ -7,10 +7,9 @@ import SingIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import Error404 from '../not-found/not-found';
-import offerProps from '../offers/offer.props';
+import offerType from '../offers/offer.type';
 
-function App(props) {
-  const { offers } = props;
+function App({offers}) {
 
   return (
     <BrowserRouter>
@@ -36,7 +35,7 @@ function App(props) {
 }
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(offerProps.isRequired).isRequired,
+  offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
 };
 
 export default App;

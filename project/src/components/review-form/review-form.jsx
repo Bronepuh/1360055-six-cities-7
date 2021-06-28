@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 
-function ReviewsForm() {
+function ReviewForm() {
   const [review, setReview] = useState();
 
   return (
@@ -53,4 +53,4 @@ function ReviewsForm() {
     </form>);
 }
 
-export default ReviewsForm;
+export default ReviewForm;

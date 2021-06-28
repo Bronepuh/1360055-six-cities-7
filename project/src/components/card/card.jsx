@@ -1,14 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { getStarRating } from '../../common';
-import offerProps from '../offers/offer.props';
+import offerType from '../offers/offer.type';
 
-function Card(props) {
-  const { offer } = props;
+function Card({offer, onListHover}) {
+
+  const handleCardOver = () => {
+    onListHover(offer);
+  };
+
+  const handleCardOut = () => {
+    onListHover(null);
+  };
 
   return (
-    <article className='cities__place-card place-card'>
+    <article className='cities__place-card place-card' onMouseOver={handleCardOver} onMouseOut={handleCardOut}>
       {offer.isPremium &&
         <div className='place-card__mark'>
           <span>Premium</span>
@@ -33,7 +41,7 @@ function Card(props) {
         </div>
         <div className='place-card__rating rating'>
           <div className='place-card__stars rating__stars'>
-            <span style={{ width: `${getStarRating(offer.rating)}%`}}></span>
+            <span style={{ width: `${getStarRating(offer.rating)}%` }}></span>
             <span className='visually-hidden'>Rating</span>
           </div>
         </div>
@@ -47,7 +55,8 @@ function Card(props) {
 }
 
 Card.propTypes = {
-  offer: offerProps.isRequired,
+  offer: offerType.isRequired,
+  onListHover: PropTypes.func,
 };
 
 export default Card;

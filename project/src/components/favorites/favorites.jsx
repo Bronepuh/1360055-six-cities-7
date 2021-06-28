@@ -2,10 +2,9 @@ import { React } from 'react';
 import PropTypes from 'prop-types';
 import FavoriteList from '../favorite-list/favotite-list';
 import { AppRoute } from '../../const';
-import offerProps from '../offers/offer.props';
+import offerType from '../offers/offer.type';
 
-function Favorites(props) {
-  const { offers } = props;
+function Favorites({offers}) {
 
   return (
     <div className='page'>
@@ -52,7 +51,7 @@ function Favorites(props) {
 }
 
 Favorites.propTypes = {
-  offers: PropTypes.arrayOf(offerProps.isRequired).isRequired,
+  offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
 };
 
 export default Favorites;
