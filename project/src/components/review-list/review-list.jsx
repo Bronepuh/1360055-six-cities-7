@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReviewItem from '../../components/review-item/review-item';
-import reviewItemProps from '../review-item/review-item.props';
+import reviewType from '../review-item/review.type';
 
-function ReviewList(props) {
-  const {comments} = props;
+function ReviewList({comments}) {
 
   return (
     <ul className='reviews__list'>
@@ -14,7 +13,7 @@ function ReviewList(props) {
 }
 
 ReviewList.propTypes = {
-  comments: PropTypes.arrayOf(reviewItemProps.isRequired).isRequired,
+  comments: PropTypes.arrayOf(reviewType.isRequired).isRequired,
 };
 
 export default ReviewList;

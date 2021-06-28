@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import offerProps from '../offers/offer.props';
+import offerType from '../offers/offer.type';
 import { icon, iconActive } from '../../const';
 import useMap from '../../hooks/useMap';
 
@@ -19,7 +19,7 @@ function Map({ city, offers, selectedPoint }) {
             lng: offer.location.lng,
           },
           {
-            icon: (offer.id === selectedPoint.id)
+            icon: (selectedPoint && selectedPoint.id === offer.id)
               ? iconActive
               : icon,
           },
@@ -40,7 +40,7 @@ Map.propTypes = {
     lng: PropTypes.number,
     zoom: PropTypes.number,
   }),
-  offers: PropTypes.arrayOf(offerProps.isRequired).isRequired,
+  offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
   selectedPoint: PropTypes.object,
 };
 

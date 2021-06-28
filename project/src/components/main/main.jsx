@@ -2,16 +2,15 @@ import {React, useState} from 'react';
 import PropTypes from 'prop-types';
 import 'leaflet/dist/leaflet.css';
 import Offers from '../offers/offers';
-import offerProps from '../offers/offer.props';
+import offerType from '../offers/offer.type';
 import Map from '../../components/map/map';
 
-function WelcomeScreen({offers, getSelectedPoint}) {
+function WelcomeScreen({offers}) {
 
-  const [selectedPoint, setSelectedPoint] = useState({});
+  const [selectedPoint, setSelectedPoint] = useState(null);
 
-  const listHoverHandler = function (offer) {
+  const handleListHover = function (offer) {
     setSelectedPoint(offer);
-    getSelectedPoint(selectedPoint);
   };
 
   const city = {
@@ -108,7 +107,7 @@ function WelcomeScreen({offers, getSelectedPoint}) {
                   <li className='places__option' tabIndex='0'>Top rated first</li>
                 </ul>
               </form>
-              <Offers offers={offers} listHoverHandler={listHoverHandler}/>
+              <Offers offers={offers} onListHover={handleListHover}/>
             </section>
             <div className='cities__right-section'>
               <section className='cities__map' id="map">
@@ -123,8 +122,7 @@ function WelcomeScreen({offers, getSelectedPoint}) {
 }
 
 WelcomeScreen.propTypes = {
-  offers: PropTypes.arrayOf(offerProps.isRequired).isRequired,
-  getSelectedPoint: PropTypes.func,
+  offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
 };
 
 export default WelcomeScreen;

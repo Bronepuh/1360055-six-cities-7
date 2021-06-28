@@ -1,9 +1,8 @@
 import React from 'react';
 import { getStarRating, getDate } from '../../common';
-import reviewItemProps from '../review-item/review-item.props';
+import reviewType from './review.type';
 
-function ReviewItem(props) {
-  const { comment } = props;
+function ReviewItem({comment}) {
   const currentDate = getDate(comment);
 
   return (
@@ -33,7 +32,7 @@ function ReviewItem(props) {
 }
 
 ReviewItem.propTypes = {
-  comment: reviewItemProps.isRequired,
+  comment: reviewType.isRequired,
 };
 
 export default ReviewItem;

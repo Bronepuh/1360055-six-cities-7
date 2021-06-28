@@ -1,20 +1,22 @@
-import { React, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { getStarRating } from '../../common';
-import offerProps from '../offers/offer.props';
+import offerType from '../offers/offer.type';
 
-function Card({offer, cardHoverHandler}) {
-  const [state, setState] = useState({});
+function Card({offer, onListHover}) {
 
-  const onCardHover = () => {
-    setState(offer);
-    cardHoverHandler(state);
+  const handleCardOver = () => {
+    onListHover(offer);
+  };
+
+  const handleCardOut = () => {
+    onListHover(null);
   };
 
   return (
-    <article className='cities__place-card place-card' onMouseEnter={onCardHover}>
+    <article className='cities__place-card place-card' onMouseOver={handleCardOver} onMouseOut={handleCardOut}>
       {offer.isPremium &&
         <div className='place-card__mark'>
           <span>Premium</span>
@@ -53,8 +55,8 @@ function Card({offer, cardHoverHandler}) {
 }
 
 Card.propTypes = {
-  offer: offerProps.isRequired,
-  cardHoverHandler: PropTypes.func,
+  offer: offerType.isRequired,
+  onListHover: PropTypes.func,
 };
 
 export default Card;
