@@ -1,14 +1,14 @@
 import {React, useState} from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import ReviewForm from '../review-form/review-form';
 import ReviewList from '../review-list/review-list';
 import { useParams } from 'react-router-dom';
 import { getStarRating } from '../../common';
 import { AppRoute } from '../../const';
-import offerType from '../offers/offer.type';
 import { commentGet } from '../../const';
 import Map from '../../components/map/map';
 import Offers from '../offers/offers';
+import stateType from '../../store/stateType';
 
 const getOffer = function (offers, id) {
   return offers.find((element) => element.id === Number(id));
@@ -19,11 +19,14 @@ const getNeighbourhoodOffers = function (offers, offer) {
   return newOffers;
 };
 
-function Room({offers}) {
+function Room({state}) {
   const { id } = useParams();
   const [selectedPoint, setSelectedPoint] = useState(null);
-  const currentOffer = getOffer(offers, id);
-  const neighbourhoodOffers = getNeighbourhoodOffers(offers, currentOffer);
+  const currentOffer = getOffer(state.offers, id);
+
+  const currentCity = state.cities.find((city) => city.name === state.activeCity);
+  const currentOffers = state.offers.filter((offer) => offer.city.name === state.activeCity);
+  const neighbourhoodOffers = getNeighbourhoodOffers(currentOffers, currentOffer);
 
   const handleListHover = function (offer) {
     setSelectedPoint(offer);
@@ -165,7 +168,7 @@ function Room({offers}) {
             </div>
           </div>
           <section className='property__map map'>
-            <Map city={currentOffer.city.location} offers={offers} selectedPoint={selectedPoint}/>
+            <Map city={currentCity} offers={state.offers} currentOffers={currentOffers} selectedPoint={selectedPoint}/>
           </section>
         </section>
         <div className='container'>
@@ -181,8 +184,12 @@ function Room({offers}) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  state,
+});
+
 Room.propTypes = {
-  offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
+  state: stateType.isRequired,
 };
 
-export default Room;
+export default connect(mapStateToProps, null)(Room);

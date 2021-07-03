@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -6,28 +6,48 @@ import offerType from '../offers/offer.type';
 import { icon, iconActive } from '../../const';
 import useMap from '../../hooks/useMap';
 
-function Map({ city, offers, selectedPoint }) {
+function Map({ city, offers, currentOffers, selectedPoint }) {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, city.location);
+
+  const [points, setPoints] = useState([]);
+
+  const getMarker = function (offer) {
+    return leaflet.marker(
+      {
+        lat: offer.location.lat,
+        lng: offer.location.lng,
+      },
+      {
+        icon: icon,
+        secretId: offer.id,
+      },
+    );
+  };
 
   useEffect(() => {
     if (map) {
-      offers.forEach((offer) => {
-        leaflet
-          .marker({
-            lat: offer.location.lat,
-            lng: offer.location.lng,
-          },
-          {
-            icon: (selectedPoint && selectedPoint.id === offer.id)
-              ? iconActive
-              : icon,
-          },
-          )
-          .addTo(map);
+      map.removeLayer(points);
+      const markers = currentOffers.map(getMarker);
+      const pins = leaflet.layerGroup(markers);
+      pins.addTo(map);
+      setPoints(pins);
+    }
+  }, [map, offers]);
+
+  useEffect(() => {
+    // activePoint.setIcon(icon)
+    if (map, selectedPoint) {
+      map.eachLayer((pin) => {
+        if(pin.options.secretId) {
+          pin.setIcon(icon);
+        }
+        if (pin.options.secretId === selectedPoint.id) {
+          pin.setIcon(iconActive);
+        }
       });
     }
-  }, [map, offers, selectedPoint]);
+  }, [map, selectedPoint]);
 
   return (
     <div style={{ height: '100%' }} ref={mapRef} />
@@ -36,11 +56,15 @@ function Map({ city, offers, selectedPoint }) {
 
 Map.propTypes = {
   city: PropTypes.shape({
-    lat: PropTypes.number,
-    lng: PropTypes.number,
-    zoom: PropTypes.number,
+    name: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lng: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }),
   }),
   offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
+  currentOffers: PropTypes.arrayOf(offerType.isRequired).isRequired,
   selectedPoint: PropTypes.object,
 };
 

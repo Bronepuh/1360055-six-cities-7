@@ -1,19 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import {composeWithDevTools} from 'redux-devtools-extension';
+import { createStore } from 'redux';
 import App from './components/app/app';
+import { reducer } from './store/reducer';
 
-import offers from './mocks/offers';
-
-const Setting = {
-  CARDS_COUNT: 5,
-};
+const store = createStore(
+  reducer,
+  composeWithDevTools(),
+);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App
-      cardsCount={Setting.CARDS_COUNT}
-      offers={offers}
-    />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
