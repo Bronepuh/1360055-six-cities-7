@@ -36,14 +36,16 @@ function Map({ city, offers, currentOffers, selectedPoint }) {
   }, [map, offers]);
 
   useEffect(() => {
-    // activePoint.setIcon(icon)
     if (map, selectedPoint) {
       map.eachLayer((pin) => {
-        if(pin.options.secretId) {
-          pin.setIcon(icon);
-        }
         if (pin.options.secretId === selectedPoint.id) {
           pin.setIcon(iconActive);
+        }
+      });
+    } else if (map) {
+      map.eachLayer((pin) => {
+        if (pin.options.secretId) {
+          pin.setIcon(icon);
         }
       });
     }

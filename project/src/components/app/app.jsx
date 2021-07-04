@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { AppRoute } from '../../const';
@@ -7,7 +8,7 @@ import SingIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import Error404 from '../not-found/not-found';
-import stateType from '../../store/stateType';
+import offerType from '../offers/offer.type';
 
 function App({ state }) {
   return (
@@ -20,10 +21,10 @@ function App({ state }) {
           <SingIn />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <Favorites offers={state.offers} />
+          <Favorites offers={state} />
         </Route>
         <Route exact path={AppRoute.ROOM_$ID}>
-          <Room offers={state.offers} />
+          <Room offers={state} />
         </Route>
         <Route>
           <Error404 />
@@ -34,11 +35,11 @@ function App({ state }) {
 }
 
 const mapStateToProps = (state) => ({
-  state,
+  state: state.offers,
 });
 
 App.propTypes = {
-  state: stateType.isRequired,
+  state: PropTypes.arrayOf(offerType.isRequired).isRequired,
 };
 
 export default connect(mapStateToProps, null)(App);

@@ -5,12 +5,13 @@ import CityList from '../city-list/city-list';
 import Offers from '../offers/offers';
 import Map from '../../components/map/map';
 import stateType from '../../store/stateType';
+import {getLocationByName, getOffersByCity} from '../../store/reducer';
 
 function WelcomeScreen({state}) {
   const [selectedPoint, setSelectedPoint] = useState(null);
 
-  const currentCity = state.cities.find((city) => city.name === state.activeCity);
-  const currentOffers = state.offers.filter((offer) => offer.city.name === state.activeCity);
+  const currentCity = getLocationByName(state);
+  const currentOffers = getOffersByCity(state);
 
   const handleListHover = function (offer) {
     setSelectedPoint(offer);

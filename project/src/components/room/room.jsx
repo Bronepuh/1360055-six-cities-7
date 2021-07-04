@@ -9,6 +9,7 @@ import { commentGet } from '../../const';
 import Map from '../../components/map/map';
 import Offers from '../offers/offers';
 import stateType from '../../store/stateType';
+import {getLocationByName, getOffersByCity} from '../../store/reducer';
 
 const getOffer = function (offers, id) {
   return offers.find((element) => element.id === Number(id));
@@ -24,8 +25,9 @@ function Room({state}) {
   const [selectedPoint, setSelectedPoint] = useState(null);
   const currentOffer = getOffer(state.offers, id);
 
-  const currentCity = state.cities.find((city) => city.name === state.activeCity);
-  const currentOffers = state.offers.filter((offer) => offer.city.name === state.activeCity);
+  const currentCity = getLocationByName(state);
+  const currentOffers = getOffersByCity(state);
+
   const neighbourhoodOffers = getNeighbourhoodOffers(currentOffers, currentOffer);
 
   const handleListHover = function (offer) {

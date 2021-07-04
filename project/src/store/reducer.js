@@ -15,19 +15,27 @@ const initialState = {
   offers: offers,
 };
 
+const getLocationByName = function (state) {
+  return state.cities.find((city) => city.name === state.activeCity);
+};
+
+const getOffersByCity = function (state) {
+  return state.offers.filter((offer) => offer.city.name === state.activeCity);
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.SELECT_CITY:
+    case (ActionType.SELECT_CITY):
       return {
         ...state,
         activeCity: action.payload,
       };
-    case ActionType.SHOW_OFFERS:
+    case (ActionType.SHOW_OFFERS):
       return {
         ...state,
         offers: getCurrentOffers(offers, action.payload),
       };
-    case ActionType.RESET_STATE:
+    case (ActionType.RESET_STATE):
       return {
         ...state,
         offers: action.payload,
@@ -37,4 +45,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export { reducer };
+export { reducer, getLocationByName, getOffersByCity };
