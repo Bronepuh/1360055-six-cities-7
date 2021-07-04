@@ -9,18 +9,18 @@ const getCurrentOffers = function (someOffers, selectedCity) {
   return currentOffers;
 };
 
+const getLocationByName = function (cities, activeCity) {
+  return cities.find((city) => city.name === activeCity);
+};
+
+const getOffersByCity = function (someOffers, activeCity) {
+  return someOffers.filter((offer) => offer.city.name === activeCity);
+};
+
 const initialState = {
   activeCity: DEFAULT_CITY,
   cities: CITIES,
   offers: offers,
-};
-
-const getLocationByName = function (state) {
-  return state.cities.find((city) => city.name === state.activeCity);
-};
-
-const getOffersByCity = function (state) {
-  return state.offers.filter((offer) => offer.city.name === state.activeCity);
 };
 
 const reducer = (state = initialState, action) => {

@@ -1,17 +1,18 @@
-import {React, useState} from 'react';
+import { React, useState } from 'react';
+import PropTypes, { arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import 'leaflet/dist/leaflet.css';
 import CityList from '../city-list/city-list';
 import Offers from '../offers/offers';
 import Map from '../../components/map/map';
-import stateType from '../../store/stateType';
-import {getLocationByName, getOffersByCity} from '../../store/reducer';
+import offerType from '../offers/offer.type';
+import { getLocationByName, getOffersByCity } from '../../store/reducer';
 
-function WelcomeScreen({state}) {
+function WelcomeScreen({ activeCity, cities, offers }) {
   const [selectedPoint, setSelectedPoint] = useState(null);
 
-  const currentCity = getLocationByName(state);
-  const currentOffers = getOffersByCity(state);
+  const currentCity = getLocationByName(cities, activeCity);
+  const currentOffers = getOffersByCity(offers, activeCity);
 
   const handleListHover = function (offer) {
     setSelectedPoint(offer);
@@ -51,14 +52,14 @@ function WelcomeScreen({state}) {
         <h1 className='visually-hidden'>Cities</h1>
         <div className='tabs'>
           <section className='locations container'>
-            <CityList cities={state.cities} />
+            <CityList cities={cities} />
           </section>
         </div>
         <div className='cities'>
           <div className='cities__places-container container'>
             <section className='cities__places places'>
               <h2 className='visually-hidden'>Places</h2>
-              <b className='places__found'>{state.offers.length} places to stay in Amsterdam</b>
+              <b className='places__found'>{offers.length} places to stay in Amsterdam</b>
               <form className='places__sorting' action='#' method='get'>
                 <span className='places__sorting-caption'>Sort by</span>
                 <span className='places__sorting-type' tabIndex='0'>
@@ -78,7 +79,7 @@ function WelcomeScreen({state}) {
             </section>
             <div className='cities__right-section'>
               <section className='cities__map' id="map">
-                <Map city={currentCity} offers={state.offers} currentOffers={currentOffers} selectedPoint={selectedPoint}/>
+                <Map city={currentCity} offers={offers} currentOffers={currentOffers} selectedPoint={selectedPoint} />
               </section>
             </div>
           </div>
@@ -89,11 +90,22 @@ function WelcomeScreen({state}) {
 }
 
 const mapStateToProps = (state) => ({
-  state,
+  activeCity: state.activeCity,
+  cities: state.cities,
+  offers: state.offers,
 });
 
 WelcomeScreen.propTypes = {
-  state: stateType.isRequired,
+  activeCity: PropTypes.string.isRequired,
+  cities: arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lng: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }),
+  })),
+  offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
 };
 
 export default connect(mapStateToProps, null)(WelcomeScreen);
