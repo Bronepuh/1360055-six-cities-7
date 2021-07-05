@@ -21,6 +21,7 @@ const initialState = {
   activeCity: DEFAULT_CITY,
   cities: CITIES,
   offers: offers,
+  sortType: 'Popular',
 };
 
 const reducer = (state = initialState, action) => {

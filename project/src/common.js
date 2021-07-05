@@ -19,4 +19,43 @@ const getDate = function (comment) {
   };
 };
 
-export { getStarRating, getDate };
+const sortByDefault = function (someOffers) {
+  return someOffers;
+};
+
+const sortByPriceToHigh = function (someOffers) {
+  const sortedOffers = someOffers.sort((someOfferA, someOfferB) => someOfferA.price - someOfferB.price);
+  return sortedOffers;
+};
+
+const sortByPriceToLow = function (someOffers) {
+  const sortedOffers = someOffers.sort((someOfferA, someOfferB) => someOfferB.price - someOfferA.price);
+  return sortedOffers;
+};
+
+const sortByRatingFromTop = function (someOffers) {
+  const sortedOffers = someOffers.sort((someOfferA, someOfferB) => someOfferB.rating - someOfferA.rating);
+  return sortedOffers;
+};
+
+const sortBySortType = function (someCurrentOffers, someType) {
+  switch (someType) {
+    case 'Popular': {
+      return sortByDefault(someCurrentOffers);
+    }
+    case 'Price: low to high': {
+      return sortByPriceToHigh(someCurrentOffers);
+    }
+    case 'Price: high to low': {
+      return sortByPriceToLow(someCurrentOffers);
+    }
+    case 'Top rated first': {
+      return sortByRatingFromTop(someCurrentOffers);
+    }
+    default: {
+      return sortByDefault(someCurrentOffers);
+    }
+  }
+};
+
+export { getStarRating, getDate, sortByDefault, sortByPriceToHigh, sortByPriceToLow, sortByRatingFromTop, sortBySortType};

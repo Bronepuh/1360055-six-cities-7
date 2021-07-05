@@ -99,4 +99,11 @@ const CITIES = [
   },
 ];
 
-export { AppRoute, icon, iconActive, commentGet, CITIES };
+const SortTypes = [
+  { type: 'Popular' },
+  { type: 'Price: low to high' },
+  { type: 'Price: high to low' },
+  { type: 'Top rated first'},
+];
+
+export { AppRoute, icon, iconActive, commentGet, CITIES, SortTypes };
