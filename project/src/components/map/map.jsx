@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import offerType from '../../propTypes/offer.type';
+import offerType from '../../prop-types/offer.type';
 import { icon, iconActive } from '../../const';
 import useMap from '../../hooks/useMap';
 

@@ -2,7 +2,7 @@ import { React } from 'react';
 import PropTypes from 'prop-types';
 import FavoriteList from '../favorite-list/favotite-list';
 import { AppRoute } from '../../const';
-import offerType from '../../propTypes/offer.type';
+import offerType from '../../prop-types/offer.type';
 
 function Favorites({offers}) {
 

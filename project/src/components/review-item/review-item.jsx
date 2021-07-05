@@ -1,6 +1,6 @@
 import React from 'react';
 import { getStarRating, getDate } from '../../common';
-import reviewType from '../../propTypes/review.type';
+import reviewType from '../../prop-types/review.type';
 
 function ReviewItem({comment}) {
   const currentDate = getDate(comment);

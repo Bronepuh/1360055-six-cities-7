@@ -9,8 +9,8 @@ import { AppRoute } from '../../const';
 import { commentGet } from '../../const';
 import Map from '../../components/map/map';
 import Offers from '../offers/offers';
-import citiesType from '../../propTypes/cities.type';
-import offerType from '../../propTypes/offer.type';
+import citiesType from '../../prop-types/cities.type';
+import offerType from '../../prop-types/offer.type';
 import {getLocationByName, getOffersByCity} from '../../store/reducer';
 
 const getOffer = function (someOffers, id) {
@@ -190,7 +190,6 @@ function Room({activeCity, cities, offers}) {
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
   cities: state.cities,
-  offers: state.offers,
 });
 
 Room.propTypes = {

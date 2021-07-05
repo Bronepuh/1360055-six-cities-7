@@ -8,9 +8,9 @@ import SingIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import Error404 from '../not-found/not-found';
-import offerType from '../../propTypes/offer.type';
+import offerType from '../../prop-types/offer.type';
 
-function App({ state }) {
+function App({ offers }) {
   return (
     <BrowserRouter>
       <Switch>
@@ -21,10 +21,10 @@ function App({ state }) {
           <SingIn />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <Favorites offers={state} />
+          <Favorites offers={offers} />
         </Route>
         <Route exact path={AppRoute.ROOM_$ID}>
-          <Room offers={state} />
+          <Room offers={offers} />
         </Route>
         <Route>
           <Error404 />
@@ -35,11 +35,11 @@ function App({ state }) {
 }
 
 const mapStateToProps = (state) => ({
-  state: state.offers,
+  offers: state.offers,
 });
 
 App.propTypes = {
-  state: PropTypes.arrayOf(offerType.isRequired).isRequired,
+  offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
 };
 
 export default connect(mapStateToProps, null)(App);

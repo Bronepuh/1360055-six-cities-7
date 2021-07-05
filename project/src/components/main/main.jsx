@@ -5,8 +5,8 @@ import 'leaflet/dist/leaflet.css';
 import CityList from '../city-list/city-list';
 import Offers from '../offers/offers';
 import Map from '../../components/map/map';
-import offerType from '../../propTypes/offer.type';
-import citiesType from '../../propTypes/cities.type';
+import offerType from '../../prop-types/offer.type';
+import citiesType from '../../prop-types/cities.type';
 import { getLocationByName, getOffersByCity } from '../../store/reducer';
 
 function WelcomeScreen({ activeCity, cities, offers }) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import CityItem from '../city-item/city-item';
 import { arrayOf } from 'prop-types';
-import citiesType from '../../propTypes/cities.type';
+import citiesType from '../../prop-types/cities.type';
 
 function CityList({cities}) {
   return (

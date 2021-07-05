@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getStarRating } from '../../common';
-import offerType from '../../propTypes/offer.type';
+import offerType from '../../prop-types/offer.type';
 
 const getCities = function (offers) {
   const cities = [];
