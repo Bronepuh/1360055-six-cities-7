@@ -12,13 +12,13 @@ const AppRoute = {
 };
 
 const icon = leaflet.icon({
-  iconUrl: 'img/pin.svg',
+  iconUrl: '/img/pin.svg',
   iconSize: [30, 30],
   iconAnchor: [15, 30],
 });
 
 const iconActive = leaflet.icon({
-  iconUrl: 'img/pin-active.svg',
+  iconUrl: '/img/pin-active.svg',
   iconSize: [30, 30],
   iconAnchor: [15, 30],
 });
@@ -48,4 +48,55 @@ const commentGet = [{
   },
 }];
 
-export { AppRoute, icon, iconActive, commentGet };
+const CITIES = [
+  {
+    name: 'Paris',
+    location: {
+      lat: 52.370216,
+      lng: 4.895168,
+      zoom: 10,
+    },
+  },
+  {
+    name: 'Cologne',
+    location: {
+      lat: 52.370216,
+      lng: 4.895168,
+      zoom: 10,
+    },
+  },
+  {
+    name: 'Brussels',
+    location: {
+      lat: 52.370216,
+      lng: 4.895168,
+      zoom: 10,
+    },
+  },
+  {
+    name: 'Amsterdam',
+    location: {
+      lat: 52.38333,
+      lng: 4.9,
+      zoom: 12,
+    },
+  },
+  {
+    name: 'Hamburg',
+    location: {
+      lat: 52.370216,
+      lng: 4.895168,
+      zoom: 10,
+    },
+  },
+  {
+    name: 'Dusseldorf',
+    location: {
+      lat: 52.370216,
+      lng: 4.895168,
+      zoom: 10,
+    },
+  },
+];
+
+export { AppRoute, icon, iconActive, commentGet, CITIES };

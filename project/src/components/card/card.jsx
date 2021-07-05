@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { getStarRating } from '../../common';
-import offerType from '../offers/offer.type';
+import offerType from '../../prop-types/offer.type';
 
 function Card({offer, onListHover}) {
 

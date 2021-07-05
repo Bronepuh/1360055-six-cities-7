@@ -1,29 +1,35 @@
 import {React, useState} from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { arrayOf } from 'prop-types';
+import { connect } from 'react-redux';
 import ReviewForm from '../review-form/review-form';
 import ReviewList from '../review-list/review-list';
 import { useParams } from 'react-router-dom';
 import { getStarRating } from '../../common';
 import { AppRoute } from '../../const';
-import offerType from '../offers/offer.type';
 import { commentGet } from '../../const';
 import Map from '../../components/map/map';
 import Offers from '../offers/offers';
+import citiesType from '../../prop-types/cities.type';
+import offerType from '../../prop-types/offer.type';
+import {getLocationByName, getOffersByCity} from '../../store/reducer';
 
-const getOffer = function (offers, id) {
-  return offers.find((element) => element.id === Number(id));
+const getOffer = function (someOffers, id) {
+  return someOffers.find((element) => element.id === Number(id));
 };
 
-const getNeighbourhoodOffers = function (offers, offer) {
-  const newOffers = offers.filter((el) => el.id !== offer.id);
+const getNeighbourhoodOffers = function (someOffers, someOffer) {
+  const newOffers = someOffers.filter((el) => el.id !== someOffer.id);
   return newOffers;
 };
 
-function Room({offers}) {
+function Room({activeCity, cities, offers}) {
   const { id } = useParams();
   const [selectedPoint, setSelectedPoint] = useState(null);
   const currentOffer = getOffer(offers, id);
-  const neighbourhoodOffers = getNeighbourhoodOffers(offers, currentOffer);
+
+  const currentCity = getLocationByName(cities, activeCity);
+  const currentOffers = getOffersByCity(offers, activeCity);
+  const neighbourhoodOffers = getNeighbourhoodOffers(currentOffers, currentOffer);
 
   const handleListHover = function (offer) {
     setSelectedPoint(offer);
@@ -165,7 +171,7 @@ function Room({offers}) {
             </div>
           </div>
           <section className='property__map map'>
-            <Map city={currentOffer.city.location} offers={offers} selectedPoint={selectedPoint}/>
+            <Map city={currentCity} offers={offers} currentOffers={currentOffers} selectedPoint={selectedPoint}/>
           </section>
         </section>
         <div className='container'>
@@ -181,8 +187,15 @@ function Room({offers}) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  activeCity: state.activeCity,
+  cities: state.cities,
+});
+
 Room.propTypes = {
+  activeCity: PropTypes.string.isRequired,
+  cities: arrayOf(citiesType).isRequired,
   offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
 };
 
-export default Room;
+export default connect(mapStateToProps, null)(Room);
