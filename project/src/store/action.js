@@ -15,7 +15,6 @@ const ActionCreator = {
   }),
   resetState: () => ({
     type: ActionType.RESET_STATE,
-    payload: {},
   }),
 };
 

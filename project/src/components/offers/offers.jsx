@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '../card/card';
-import offerType from './offer.type';
+import offerType from '../../propTypes/offer.type';
 
 function Offers({ offers, onListHover }) {
 

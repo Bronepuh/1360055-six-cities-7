@@ -3,30 +3,30 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ActionCreator } from '../../store/action';
 
-function CityItem({ city, state, onCitySelect }) {
+function CityItem({ cityName, activeCity, onCitySelect }) {
 
   const handleCitySelect = (evt) => {
     evt.preventDefault();
-    onCitySelect(evt.target.textContent);
+    onCitySelect(cityName);
   };
 
   return (
     <li className='locations__item' onClick={handleCitySelect}>
-      <a className={city.name !== state.activeCity ? 'locations__item-link tabs__item' : 'locations__item-link tabs__item tabs__item--active'} href='#'>
-        <span>{city.name}</span>
+      <a className={cityName !== activeCity ? 'locations__item-link tabs__item' : 'locations__item-link tabs__item tabs__item--active'} href='#'>
+        <span>{cityName}</span>
       </a>
     </li>
   );
 }
 
 CityItem.propTypes = {
-  city: PropTypes.object,
+  cityName: PropTypes.string,
   onCitySelect: PropTypes.func,
-  state: PropTypes.string.isRequired,
+  activeCity: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  state: state.activeCity,
+  activeCity: state.activeCity,
 });
 
 const mapDispatchToProps = (dispatch) => ({

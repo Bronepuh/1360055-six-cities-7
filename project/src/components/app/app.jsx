@@ -8,7 +8,7 @@ import SingIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import Error404 from '../not-found/not-found';
-import offerType from '../offers/offer.type';
+import offerType from '../../propTypes/offer.type';
 
 function App({ state }) {
   return (

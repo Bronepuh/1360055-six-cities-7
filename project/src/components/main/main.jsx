@@ -5,7 +5,8 @@ import 'leaflet/dist/leaflet.css';
 import CityList from '../city-list/city-list';
 import Offers from '../offers/offers';
 import Map from '../../components/map/map';
-import offerType from '../offers/offer.type';
+import offerType from '../../propTypes/offer.type';
+import citiesType from '../../propTypes/cities.type';
 import { getLocationByName, getOffersByCity } from '../../store/reducer';
 
 function WelcomeScreen({ activeCity, cities, offers }) {
@@ -97,14 +98,7 @@ const mapStateToProps = (state) => ({
 
 WelcomeScreen.propTypes = {
   activeCity: PropTypes.string.isRequired,
-  cities: arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    location: PropTypes.shape({
-      lat: PropTypes.number.isRequired,
-      lng: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired,
-    }),
-  })),
+  cities: arrayOf(citiesType).isRequired,
   offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
 };
 

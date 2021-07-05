@@ -9,7 +9,8 @@ import { AppRoute } from '../../const';
 import { commentGet } from '../../const';
 import Map from '../../components/map/map';
 import Offers from '../offers/offers';
-import offerType from '../offers/offer.type';
+import citiesType from '../../propTypes/cities.type';
+import offerType from '../../propTypes/offer.type';
 import {getLocationByName, getOffersByCity} from '../../store/reducer';
 
 const getOffer = function (someOffers, id) {
@@ -194,14 +195,7 @@ const mapStateToProps = (state) => ({
 
 Room.propTypes = {
   activeCity: PropTypes.string.isRequired,
-  cities: arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    location: PropTypes.shape({
-      lat: PropTypes.number.isRequired,
-      lng: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired,
-    }),
-  })),
+  cities: arrayOf(citiesType).isRequired,
   offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReviewItem from '../../components/review-item/review-item';
-import reviewType from '../review-item/review.type';
+import reviewType from '../../propTypes/review.type';
 
 function ReviewList({comments}) {
 
