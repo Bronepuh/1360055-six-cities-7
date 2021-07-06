@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SortItem from '../sort-item/sort-item';
-import { SortTypes } from '../../const';
+import { SortType } from '../../const';
 
 function SortList({ isOpen, handleSortTypeSelect }) {
 
@@ -11,7 +11,7 @@ function SortList({ isOpen, handleSortTypeSelect }) {
 
   return (
     <ul className={isOpen ? 'places__options places__options--custom places__options--opened' : 'places__options places__options--custom'}  >
-      {SortTypes.map((SortType) => <SortItem key={SortType.type} itemName={SortType.type} handleSortItemClick={handleSortItemClick} />)}
+      {Object.values(SortType).map((type) => <SortItem key={type} itemName={type} handleSortItemClick={handleSortItemClick} />)}
     </ul>
   );
 }

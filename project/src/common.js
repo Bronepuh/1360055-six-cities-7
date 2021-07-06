@@ -1,3 +1,5 @@
+import { SortType } from './const';
+
 const MAX_PERCENTS = 100;
 const MAX_OFFER_RATING = 5;
 
@@ -24,32 +26,32 @@ const sortByDefault = function (someOffers) {
 };
 
 const sortByPriceToHigh = function (someOffers) {
-  const sortedOffers = someOffers.sort((someOfferA, someOfferB) => someOfferA.price - someOfferB.price);
+  const sortedOffers = [...someOffers].sort((someOfferA, someOfferB) => someOfferA.price - someOfferB.price);
   return sortedOffers;
 };
 
 const sortByPriceToLow = function (someOffers) {
-  const sortedOffers = someOffers.sort((someOfferA, someOfferB) => someOfferB.price - someOfferA.price);
+  const sortedOffers = [...someOffers].sort((someOfferA, someOfferB) => someOfferB.price - someOfferA.price);
   return sortedOffers;
 };
 
 const sortByRatingFromTop = function (someOffers) {
-  const sortedOffers = someOffers.sort((someOfferA, someOfferB) => someOfferB.rating - someOfferA.rating);
+  const sortedOffers = [...someOffers].sort((someOfferA, someOfferB) => someOfferB.rating - someOfferA.rating);
   return sortedOffers;
 };
 
 const sortBySortType = function (someCurrentOffers, someType) {
   switch (someType) {
-    case 'Popular': {
+    case SortType.POPULAR: {
       return sortByDefault(someCurrentOffers);
     }
-    case 'Price: low to high': {
+    case SortType.TO_HIGHT: {
       return sortByPriceToHigh(someCurrentOffers);
     }
-    case 'Price: high to low': {
+    case SortType.TO_LOW: {
       return sortByPriceToLow(someCurrentOffers);
     }
-    case 'Top rated first': {
+    case SortType.TOP_RATE: {
       return sortByRatingFromTop(someCurrentOffers);
     }
     default: {
@@ -58,4 +60,4 @@ const sortBySortType = function (someCurrentOffers, someType) {
   }
 };
 
-export { getStarRating, getDate, sortByDefault, sortByPriceToHigh, sortByPriceToLow, sortByRatingFromTop, sortBySortType};
+export { getStarRating, getDate, sortBySortType};
