@@ -21,10 +21,6 @@ const getDate = function (comment) {
   };
 };
 
-const sortByDefault = function (someOffers) {
-  return someOffers;
-};
-
 const sortByPriceToHigh = function (someOffers) {
   const sortedOffers = [...someOffers].sort((someOfferA, someOfferB) => someOfferA.price - someOfferB.price);
   return sortedOffers;
@@ -40,22 +36,26 @@ const sortByRatingFromTop = function (someOffers) {
   return sortedOffers;
 };
 
+const getSortedItems = function (items, compareFn) {
+  return [...items].sort(compareFn);
+};
+
 const sortBySortType = function (someCurrentOffers, someType) {
   switch (someType) {
     case SortType.POPULAR: {
-      return sortByDefault(someCurrentOffers);
+      return someCurrentOffers;
     }
     case SortType.TO_HIGHT: {
-      return sortByPriceToHigh(someCurrentOffers);
+      return getSortedItems(sortByPriceToHigh(someCurrentOffers));
     }
     case SortType.TO_LOW: {
-      return sortByPriceToLow(someCurrentOffers);
+      return getSortedItems(sortByPriceToLow(someCurrentOffers));
     }
     case SortType.TOP_RATE: {
-      return sortByRatingFromTop(someCurrentOffers);
+      return getSortedItems(sortByRatingFromTop(someCurrentOffers));
     }
     default: {
-      return sortByDefault(someCurrentOffers);
+      return someCurrentOffers;
     }
   }
 };
