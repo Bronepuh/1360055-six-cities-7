@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import PropTypes, { arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import 'leaflet/dist/leaflet.css';
@@ -13,14 +13,22 @@ import { sortBySortType } from '../../common';
 
 function WelcomeScreen({ activeCity, cities, offers }) {
   const [selectedPoint, setSelectedPoint] = useState(null);
+  const [newSortType, setNewSortType] = useState('Popular');
+  const [sortedOffers, setSortedOffers] = useState([]);
   const currentCity = getLocationByName(cities, activeCity);
-  const currentOffers = getOffersByCity(offers, activeCity);
-  const [sortedOffers, setSortedOffers] = useState(currentOffers);
+
+  let currentOffers = getOffersByCity(offers, activeCity);
 
   const handleSortTypeSelect = function (sortType) {
-    const newSortedOffers = sortBySortType(currentOffers, sortType);
-    setSortedOffers(newSortedOffers);
+    setNewSortType(sortType);
   };
+
+  useEffect(()=>{
+    currentOffers = getOffersByCity(offers, activeCity);
+    setSortedOffers(currentOffers);
+    const newSortedOffers = sortBySortType(currentOffers, newSortType);
+    setSortedOffers(newSortedOffers);
+  }, [activeCity, newSortType]);
 
   const handleListHover = function (offer) {
     setSelectedPoint(offer);
@@ -60,7 +68,7 @@ function WelcomeScreen({ activeCity, cities, offers }) {
         <h1 className='visually-hidden'>Cities</h1>
         <div className='tabs'>
           <section className='locations container'>
-            <CityList cities={cities} />
+            <CityList cities={cities}/>
           </section>
         </div>
         <div className='cities'>
