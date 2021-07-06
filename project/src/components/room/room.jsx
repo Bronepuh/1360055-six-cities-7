@@ -11,7 +11,7 @@ import Map from '../../components/map/map';
 import Offers from '../offers/offers';
 import citiesType from '../../prop-types/cities.type';
 import offerType from '../../prop-types/offer.type';
-import {getLocationByName, getOffersByCity} from '../../store/reducer';
+import {getLocationByName, getOffersByCity} from '../../common';
 
 const getOffer = function (someOffers, id) {
   return someOffers.find((element) => element.id === Number(id));

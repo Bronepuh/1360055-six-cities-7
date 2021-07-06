@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 import PropTypes, { arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import 'leaflet/dist/leaflet.css';
@@ -8,27 +8,21 @@ import Offers from '../offers/offers';
 import Map from '../../components/map/map';
 import offerType from '../../prop-types/offer.type';
 import citiesType from '../../prop-types/cities.type';
-import { getLocationByName, getOffersByCity } from '../../store/reducer';
+import { getLocationByName, getOffersByCity } from '../../common';
 import { sortBySortType } from '../../common';
+import { SortType } from '../../const';
 
 function WelcomeScreen({ activeCity, cities, offers }) {
   const [selectedPoint, setSelectedPoint] = useState(null);
-  const [newSortType, setNewSortType] = useState('Popular');
-  const [sortedOffers, setSortedOffers] = useState([]);
-  const currentCity = getLocationByName(cities, activeCity);
+  const [newSortType, setNewSortType] = useState(SortType.POPULAR);
 
-  let currentOffers = getOffersByCity(offers, activeCity);
+  const currentCity = getLocationByName(cities, activeCity);
+  const offersByCity = getOffersByCity(offers, activeCity);
+  const sortedOffers = sortBySortType(offersByCity, newSortType);
 
   const handleSortTypeSelect = function (sortType) {
     setNewSortType(sortType);
   };
-
-  useEffect(()=>{
-    currentOffers = getOffersByCity(offers, activeCity);
-    setSortedOffers(currentOffers);
-    const newSortedOffers = sortBySortType(currentOffers, newSortType);
-    setSortedOffers(newSortedOffers);
-  }, [activeCity, newSortType]);
 
   const handleListHover = function (offer) {
     setSelectedPoint(offer);
@@ -68,20 +62,20 @@ function WelcomeScreen({ activeCity, cities, offers }) {
         <h1 className='visually-hidden'>Cities</h1>
         <div className='tabs'>
           <section className='locations container'>
-            <CityList cities={cities}/>
+            <CityList cities={cities} />
           </section>
         </div>
         <div className='cities'>
           <div className='cities__places-container container'>
             <section className='cities__places places'>
               <h2 className='visually-hidden'>Places</h2>
-              <b className='places__found'>{offers.length} places to stay in Amsterdam</b>
+              <b className='places__found'>{offersByCity.length} places to stay in Amsterdam</b>
               <SortForm handleSortTypeSelect={handleSortTypeSelect}/>
               <Offers offers={sortedOffers} onListHover={handleListHover} />
             </section>
             <div className='cities__right-section'>
               <section className='cities__map' id="map">
-                <Map city={currentCity} offers={offers} currentOffers={currentOffers} selectedPoint={selectedPoint} />
+                <Map city={currentCity} offers={offers} currentOffers={offersByCity} selectedPoint={selectedPoint} />
               </section>
             </div>
           </div>

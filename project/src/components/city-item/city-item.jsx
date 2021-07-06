@@ -4,15 +4,14 @@ import { connect } from 'react-redux';
 import { ActionCreator } from '../../store/action';
 
 function CityItem({ cityName, activeCity, onCitySelect }) {
-
-  const handleCitySelect = (evt) => {
+  const handleCityClick = (evt) => {
     evt.preventDefault();
     onCitySelect(cityName);
   };
 
   return (
-    <li className='locations__item' onClick={handleCitySelect}>
-      <a className={cityName !== activeCity ? 'locations__item-link tabs__item' : 'locations__item-link tabs__item tabs__item--active'} href='#'>
+    <li className='locations__item'>
+      <a className={cityName !== activeCity ? 'locations__item-link tabs__item' : 'locations__item-link tabs__item tabs__item--active'} href='#' onClick={handleCityClick}>
         <span>{cityName}</span>
       </a>
     </li>
@@ -21,8 +20,8 @@ function CityItem({ cityName, activeCity, onCitySelect }) {
 
 CityItem.propTypes = {
   cityName: PropTypes.string,
+  activeCity: PropTypes.string,
   onCitySelect: PropTypes.func,
-  activeCity: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -32,7 +31,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onCitySelect(selectedCity) {
     dispatch(ActionCreator.selectCity(selectedCity));
-    dispatch(ActionCreator.showOffers(selectedCity));
   },
 });
 

@@ -21,6 +21,14 @@ const getDate = function (comment) {
   };
 };
 
+const getLocationByName = function (cities, activeCity) {
+  return cities.find((city) => city.name === activeCity);
+};
+
+const getOffersByCity = function (someOffers, activeCity) {
+  return someOffers.filter((offer) => offer.city.name === activeCity);
+};
+
 const sortByPriceToHigh = function (someOffers) {
   const sortedOffers = [...someOffers].sort((someOfferA, someOfferB) => someOfferA.price - someOfferB.price);
   return sortedOffers;
@@ -60,4 +68,4 @@ const sortBySortType = function (someCurrentOffers, someType) {
   }
 };
 
-export { getStarRating, getDate, sortBySortType};
+export { getStarRating, getDate, getLocationByName, getOffersByCity, sortBySortType};

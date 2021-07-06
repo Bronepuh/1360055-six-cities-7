@@ -1,6 +1,6 @@
 const ActionType = {
   SELECT_CITY: 'main/selectCity',
-  SHOW_OFFERS: 'main/showOffers',
+  SET_OFFERS: 'main/setOffers',
 };
 
 const ActionCreator = {
@@ -8,9 +8,9 @@ const ActionCreator = {
     type: ActionType.SELECT_CITY,
     payload: selectedCity,
   }),
-  showOffers: (selectedCity) => ({
-    type: ActionType.SHOW_OFFERS,
-    payload: selectedCity,
+  setOffers: (offers) => ({
+    type: ActionType.SET_OFFERS,
+    payload: offers,
   }),
 };
 
