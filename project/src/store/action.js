@@ -1,6 +1,7 @@
 const ActionType = {
   SELECT_CITY: 'main/selectCity',
   SET_OFFERS: 'main/setOffers',
+  SET_HOTELS: 'main/setHotels',
 };
 
 const ActionCreator = {
@@ -11,6 +12,10 @@ const ActionCreator = {
   setOffers: (offers) => ({
     type: ActionType.SET_OFFERS,
     payload: offers,
+  }),
+  setHotels: (hotels) => ({
+    type: ActionType.SET_HOTELS,
+    payload: hotels,
   }),
 };
 

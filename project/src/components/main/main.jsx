@@ -12,7 +12,8 @@ import { getLocationByName, getOffersByCity } from '../../common';
 import { sortByType } from '../../common';
 import { SortType } from '../../const';
 
-function WelcomeScreen({ activeCity, cities, offers }) {
+function WelcomeScreen({ activeCity, cities, offers, hotels }) {
+  console.log(hotels);
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [newSortType, setNewSortType] = useState(SortType.POPULAR);
 
@@ -89,6 +90,7 @@ const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
   cities: state.cities,
   offers: state.offers,
+  hotels: state.hotels,
   sortType: state.sortType,
 });
 
