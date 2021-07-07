@@ -1,6 +1,5 @@
 import { ActionType } from './action';
 import { CITIES } from '../const';
-import { SortType } from '../const';
 
 const DEFAULT_CITY = 'Amsterdam';
 
@@ -8,7 +7,6 @@ const initialState = {
   activeCity: DEFAULT_CITY,
   cities: CITIES,
   offers: [],
-  sortType: SortType.POPULAR,
 };
 
 const reducer = (state = initialState, action) => {
