@@ -3,17 +3,26 @@ import PropTypes, { arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import 'leaflet/dist/leaflet.css';
 import CityList from '../city-list/city-list';
+import SortForm from '../sort-form/sort-form';
 import Offers from '../offers/offers';
 import Map from '../../components/map/map';
 import offerType from '../../prop-types/offer.type';
 import citiesType from '../../prop-types/cities.type';
-import { getLocationByName, getOffersByCity } from '../../store/reducer';
+import { getLocationByName, getOffersByCity } from '../../common';
+import { sortByType } from '../../common';
+import { SortType } from '../../const';
 
 function WelcomeScreen({ activeCity, cities, offers }) {
   const [selectedPoint, setSelectedPoint] = useState(null);
+  const [newSortType, setNewSortType] = useState(SortType.POPULAR);
 
   const currentCity = getLocationByName(cities, activeCity);
-  const currentOffers = getOffersByCity(offers, activeCity);
+  const offersByCity = getOffersByCity(offers, activeCity);
+  const sortedOffers = sortByType(offersByCity, newSortType);
+
+  const handleSortTypeSelect = function (sortType) {
+    setNewSortType(sortType);
+  };
 
   const handleListHover = function (offer) {
     setSelectedPoint(offer);
@@ -60,27 +69,13 @@ function WelcomeScreen({ activeCity, cities, offers }) {
           <div className='cities__places-container container'>
             <section className='cities__places places'>
               <h2 className='visually-hidden'>Places</h2>
-              <b className='places__found'>{offers.length} places to stay in Amsterdam</b>
-              <form className='places__sorting' action='#' method='get'>
-                <span className='places__sorting-caption'>Sort by</span>
-                <span className='places__sorting-type' tabIndex='0'>
-                  Popular
-                  <svg className='places__sorting-arrow' width='7' height='4'>
-                    <use xlinkHref='#icon-arrow-select'></use>
-                  </svg>
-                </span>
-                <ul className='places__options places__options--custom places__options--opened'>
-                  <li className='places__option places__option--active' tabIndex='0'>Popular</li>
-                  <li className='places__option' tabIndex='0'>Price: low to high</li>
-                  <li className='places__option' tabIndex='0'>Price: high to low</li>
-                  <li className='places__option' tabIndex='0'>Top rated first</li>
-                </ul>
-              </form>
-              <Offers offers={currentOffers} onListHover={handleListHover} />
+              <b className='places__found'>{offersByCity.length} places to stay in Amsterdam</b>
+              <SortForm onSortTypeSelectClick={handleSortTypeSelect} newSortType={newSortType}/>
+              <Offers offers={sortedOffers} onListHover={handleListHover} />
             </section>
             <div className='cities__right-section'>
               <section className='cities__map' id="map">
-                <Map city={currentCity} offers={offers} currentOffers={currentOffers} selectedPoint={selectedPoint} />
+                <Map city={currentCity} offers={offers} currentOffers={offersByCity} selectedPoint={selectedPoint} />
               </section>
             </div>
           </div>
@@ -94,6 +89,7 @@ const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
   cities: state.cities,
   offers: state.offers,
+  sortType: state.sortType,
 });
 
 WelcomeScreen.propTypes = {

@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import { React, useState } from 'react';
 import PropTypes, { arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import ReviewForm from '../review-form/review-form';
@@ -11,7 +11,7 @@ import Map from '../../components/map/map';
 import Offers from '../offers/offers';
 import citiesType from '../../prop-types/cities.type';
 import offerType from '../../prop-types/offer.type';
-import {getLocationByName, getOffersByCity} from '../../store/reducer';
+import { getLocationByName, getOffersByCity } from '../../common';
 
 const getOffer = function (someOffers, id) {
   return someOffers.find((element) => element.id === Number(id));
@@ -22,7 +22,7 @@ const getNeighbourhoodOffers = function (someOffers, someOffer) {
   return newOffers;
 };
 
-function Room({activeCity, cities, offers}) {
+function Room({ activeCity, cities, offers }) {
   const { id } = useParams();
   const [selectedPoint, setSelectedPoint] = useState(null);
   const currentOffer = getOffer(offers, id);
@@ -171,14 +171,14 @@ function Room({activeCity, cities, offers}) {
             </div>
           </div>
           <section className='property__map map'>
-            <Map city={currentCity} offers={offers} currentOffers={currentOffers} selectedPoint={selectedPoint}/>
+            <Map city={currentCity} offers={offers} currentOffers={currentOffers} selectedPoint={selectedPoint} />
           </section>
         </section>
         <div className='container'>
           <section className='near-places places'>
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
             <div className='near-places__list places__list'>
-              <Offers offers={neighbourhoodOffers} onListHover={handleListHover}/>
+              <Offers offers={neighbourhoodOffers} onListHover={handleListHover} />
             </div>
           </section>
         </div>
