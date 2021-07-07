@@ -65,7 +65,7 @@ Map.propTypes = {
       zoom: PropTypes.number.isRequired,
     }),
   }),
-  offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
+  // offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
   currentOffers: PropTypes.arrayOf(offerType.isRequired).isRequired,
   selectedPoint: PropTypes.object,
 };

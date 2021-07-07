@@ -13,7 +13,7 @@ function Offers({ offers, onListHover }) {
 }
 
 Offers.propTypes = {
-  offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
+  // offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
   onListHover: PropTypes.func,
 };
 

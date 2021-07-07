@@ -7,7 +7,7 @@ const initialState = {
   activeCity: DEFAULT_CITY,
   cities: CITIES,
   offers: [],
-  hotels: [],
+  startOffers: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -25,9 +25,10 @@ const reducer = (state = initialState, action) => {
       };
     }
     case ActionType.SET_HOTELS: {
+      console.log(action.payload);
       return {
         ...state,
-        hotels: action.payload,
+        offers: action.payload,
       };
     }
     default: {
