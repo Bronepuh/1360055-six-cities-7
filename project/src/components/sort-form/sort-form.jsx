@@ -2,7 +2,7 @@ import {React, useState} from 'react';
 import PropTypes from 'prop-types';
 import SortList from '../sort-list/sort-list';
 
-function SortForm({handleSortTypeSelect}) {
+function SortForm({onSortTypeSelectClick, newSortType}) {
   const [isOpen, setIsOpen] = useState(false);
   const toogleSortMenu = () => setIsOpen (!isOpen);
   const onSortBtnClick = function () {
@@ -11,20 +11,21 @@ function SortForm({handleSortTypeSelect}) {
 
   return (
     <form className='places__sorting' action='#' method='get'>
-      <span className='places__sorting-caption'>Sort by</span>
+      <span className='places__sorting-caption'>Sort by&nbsp;</span>
       <span className='places__sorting-type' tabIndex='0' onClick={onSortBtnClick}>
-        Popular
+        {newSortType}
         <svg className='places__sorting-arrow' width='7' height='4'>
           <use xlinkHref='#icon-arrow-select'></use>
         </svg>
       </span>
-      <SortList handleSortTypeSelect={handleSortTypeSelect} isOpen={isOpen}/>
+      <SortList onSortTypeSelectClick={onSortTypeSelectClick} isOpen={isOpen}/>
     </form>
   );
 }
 
 SortForm.propTypes = {
-  handleSortTypeSelect: PropTypes.func.isRequired,
+  onSortTypeSelectClick: PropTypes.func.isRequired,
+  newSortType: PropTypes.string.isRequired,
 };
 
 export default SortForm;

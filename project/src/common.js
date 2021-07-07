@@ -29,38 +29,35 @@ const getOffersByCity = function (someOffers, activeCity) {
   return someOffers.filter((offer) => offer.city.name === activeCity);
 };
 
-const sortByPriceToHigh = function (someOffers) {
-  const sortedOffers = [...someOffers].sort((someOfferA, someOfferB) => someOfferA.price - someOfferB.price);
-  return sortedOffers;
+const compareByPriceToHight = function(a, b) {
+  return a.price - b.price;
 };
 
-const sortByPriceToLow = function (someOffers) {
-  const sortedOffers = [...someOffers].sort((someOfferA, someOfferB) => someOfferB.price - someOfferA.price);
-  return sortedOffers;
+const compareByPriceToLow = function(a, b) {
+  return b.price - a.price;
 };
 
-const sortByRatingFromTop = function (someOffers) {
-  const sortedOffers = [...someOffers].sort((someOfferA, someOfferB) => someOfferB.rating - someOfferA.rating);
-  return sortedOffers;
+const compareTopRate = function(a, b) {
+  return b.rating - a.rating;
 };
 
 const getSortedItems = function (items, compareFn) {
   return [...items].sort(compareFn);
 };
 
-const sortBySortType = function (someCurrentOffers, someType) {
+const sortByType = function (someCurrentOffers, someType) {
   switch (someType) {
     case SortType.POPULAR: {
       return someCurrentOffers;
     }
     case SortType.TO_HIGHT: {
-      return getSortedItems(sortByPriceToHigh(someCurrentOffers));
+      return getSortedItems(someCurrentOffers, compareByPriceToHight);
     }
     case SortType.TO_LOW: {
-      return getSortedItems(sortByPriceToLow(someCurrentOffers));
+      return getSortedItems(someCurrentOffers, compareByPriceToLow);
     }
     case SortType.TOP_RATE: {
-      return getSortedItems(sortByRatingFromTop(someCurrentOffers));
+      return getSortedItems(someCurrentOffers, compareTopRate);
     }
     default: {
       return someCurrentOffers;
@@ -68,4 +65,4 @@ const sortBySortType = function (someCurrentOffers, someType) {
   }
 };
 
-export { getStarRating, getDate, getLocationByName, getOffersByCity, sortBySortType};
+export { getStarRating, getDate, getLocationByName, getOffersByCity, sortByType};
