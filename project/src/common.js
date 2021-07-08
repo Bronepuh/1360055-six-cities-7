@@ -1,3 +1,5 @@
+import { SortType } from './const';
+
 const MAX_PERCENTS = 100;
 const MAX_OFFER_RATING = 5;
 
@@ -19,4 +21,48 @@ const getDate = function (comment) {
   };
 };
 
-export { getStarRating, getDate };
+const getLocationByName = function (cities, activeCity) {
+  return cities.find((city) => city.name === activeCity);
+};
+
+const getOffersByCity = function (someOffers, activeCity) {
+  return someOffers.filter((offer) => offer.city.name === activeCity);
+};
+
+const compareByPriceToHight = function(a, b) {
+  return a.price - b.price;
+};
+
+const compareByPriceToLow = function(a, b) {
+  return b.price - a.price;
+};
+
+const compareTopRate = function(a, b) {
+  return b.rating - a.rating;
+};
+
+const getSortedItems = function (items, compareFn) {
+  return [...items].sort(compareFn);
+};
+
+const sortByType = function (someCurrentOffers, someType) {
+  switch (someType) {
+    case SortType.POPULAR: {
+      return someCurrentOffers;
+    }
+    case SortType.TO_HIGHT: {
+      return getSortedItems(someCurrentOffers, compareByPriceToHight);
+    }
+    case SortType.TO_LOW: {
+      return getSortedItems(someCurrentOffers, compareByPriceToLow);
+    }
+    case SortType.TOP_RATE: {
+      return getSortedItems(someCurrentOffers, compareTopRate);
+    }
+    default: {
+      return someCurrentOffers;
+    }
+  }
+};
+
+export { getStarRating, getDate, getLocationByName, getOffersByCity, sortByType};
