@@ -18,50 +18,40 @@ const store = createStore(
 );
 
 const parseDataToState = function (data) {
-  return data.map((hotel) => {
-    const adaptedHotel = Object.assign(
-      {},
-      hotel,
-      {
-        city: {
-          location: {
-            lat: hotel.city.location.latitude,
-            lng: hotel.city.location.longitude,
-            zoom: hotel.city.location.zoom,
-          },
-          name: hotel.city.name,
-        },
-        host: {
-          avatarUrl: hotel.host.avatar_url,
-          id: hotel.host.id,
-          isPro: hotel.host.is_pro,
-          name: hotel.host.name,
-        },
-        isFavorite: hotel.is_favorite,
-        isPremium: hotel.is_premium,
-        location: {
-          lat: hotel.location.latitude,
-          lng: hotel.location.longitude,
-          zoom: hotel.location.zoom,
-        },
-        maxAdults: hotel.max_adults,
-        previewImage: hotel.preview_image,
+  return data.map((hotel) => ({
+    bedrooms: hotel.bedrooms,
+    city: {
+      location: {
+        lat: hotel.city.location.latitude,
+        lng: hotel.city.location.longitude,
+        zoom: hotel.city.location.zoom,
       },
-    );
-
-    // Ненужные ключи мы удаляем
-    delete adaptedHotel.host.avatar_url;
-    delete adaptedHotel.host.is_pro;
-
-    delete adaptedHotel.is_favorite;
-    delete adaptedHotel.is_premium;
-
-    delete adaptedHotel.max_adults;
-    delete adaptedHotel.preview_image;
-
-    console.log(adaptedHotel);
-    return adaptedHotel;
-  });
+      name: hotel.city.name,
+    },
+    description: hotel.description,
+    goods: hotel.goods,
+    host: {
+      avatarUrl: hotel.host.avatar_url,
+      id: hotel.host.id,
+      isPro: hotel.host.is_pro,
+      name: hotel.host.name,
+    },
+    id: hotel.id,
+    images: hotel.images,
+    isFavorite: hotel.is_favorite,
+    isPremium: hotel.is_premium,
+    location: {
+      lat: hotel.location.latitude,
+      lng: hotel.location.longitude,
+      zoom: hotel.location.zoom,
+    },
+    maxAdults: hotel.max_adults,
+    previewImage: hotel.preview_image,
+    price: hotel.price,
+    rating: hotel.rating,
+    title: hotel.title,
+    type: hotel.type,
+  }));
 };
 
 api.get('/hotels').then((res) => {
