@@ -1,13 +1,12 @@
 import { ActionType } from './action';
 import { CITIES } from '../const';
 
-const DEFAULT_CITY = 'Amsterdam';
+const DEFAULT_CITY = 'Paris';
 
 const initialState = {
   activeCity: DEFAULT_CITY,
   cities: CITIES,
   offers: [],
-  startOffers: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,13 +18,6 @@ const reducer = (state = initialState, action) => {
       };
     }
     case ActionType.SET_OFFERS: {
-      return {
-        ...state,
-        offers: action.payload,
-      };
-    }
-    case ActionType.SET_HOTELS: {
-      console.log(action.payload);
       return {
         ...state,
         offers: action.payload,

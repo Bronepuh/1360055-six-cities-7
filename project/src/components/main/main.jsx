@@ -2,6 +2,7 @@ import { React, useState } from 'react';
 import PropTypes, { arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import 'leaflet/dist/leaflet.css';
+import Spinner from '../spinner/spinner';
 import CityList from '../city-list/city-list';
 import SortForm from '../sort-form/sort-form';
 import Offers from '../offers/offers';
@@ -13,7 +14,6 @@ import { sortByType } from '../../common';
 import { SortType } from '../../const';
 
 function WelcomeScreen({ activeCity, cities, offers }) {
-  // console.log(hotels);
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [newSortType, setNewSortType] = useState(SortType.POPULAR);
 
@@ -61,26 +61,30 @@ function WelcomeScreen({ activeCity, cities, offers }) {
 
       <main className='page__main page__main--index'>
         <h1 className='visually-hidden'>Cities</h1>
-        <div className='tabs'>
-          <section className='locations container'>
-            <CityList cities={cities} />
-          </section>
-        </div>
-        <div className='cities'>
-          <div className='cities__places-container container'>
-            <section className='cities__places places'>
-              <h2 className='visually-hidden'>Places</h2>
-              <b className='places__found'>{offersByCity.length} places to stay in Amsterdam</b>
-              <SortForm onSortTypeSelectClick={handleSortTypeSelect} newSortType={newSortType}/>
-              <Offers offers={sortedOffers} onListHover={handleListHover} />
+        {!offers.length &&
+          <Spinner />}
+        {offers.length &&
+          <div className='tabs'>
+            <section className='locations container'>
+              <CityList cities={cities} />
             </section>
-            <div className='cities__right-section'>
-              <section className='cities__map' id="map">
-                <Map city={currentCity} offers={offers} currentOffers={offersByCity} selectedPoint={selectedPoint} />
+          </div>}
+        {offers.length &&
+          <div className='cities'>
+            <div className='cities__places-container container'>
+              <section className='cities__places places'>
+                <h2 className='visually-hidden'>Places</h2>
+                <b className='places__found'>{offersByCity.length} places to stay in {activeCity}</b>
+                <SortForm onSortTypeSelectClick={handleSortTypeSelect} newSortType={newSortType} />
+                <Offers offers={sortedOffers} onListHover={handleListHover} />
               </section>
+              <div className='cities__right-section'>
+                <section className='cities__map' id="map">
+                  <Map city={currentCity} offers={offers} currentOffers={offersByCity} selectedPoint={selectedPoint} />
+                </section>
+              </div>
             </div>
-          </div>
-        </div>
+          </div>}
       </main>
     </div>
   );
@@ -90,15 +94,14 @@ const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
   cities: state.cities,
   offers: state.offers,
-  // hotels: state.hotels,
   sortType: state.sortType,
+  offersByCity1: state.offersByCity1,
 });
 
 WelcomeScreen.propTypes = {
   activeCity: PropTypes.string.isRequired,
   cities: arrayOf(citiesType).isRequired,
-  offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
-  hotels: PropTypes.array,
+  offers: PropTypes.arrayOf(offerType.isRequired),
 };
 
 export default connect(mapStateToProps, null)(WelcomeScreen);
