@@ -11,7 +11,6 @@ import { getLocationByName, getOffersByCity } from '../../store/reducer';
 
 function WelcomeScreen({ activeCity, cities, offers }) {
   const [selectedPoint, setSelectedPoint] = useState(null);
-
   const currentCity = getLocationByName(cities, activeCity);
   const currentOffers = getOffersByCity(offers, activeCity);
 
