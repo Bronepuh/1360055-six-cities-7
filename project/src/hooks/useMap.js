@@ -6,6 +6,10 @@ function useMap(mapRef, city) {
   const [map, setMap] = useState(null);
 
   useEffect(() => {
+    if (map !== null) {
+      map.setView(city, city.zoom);
+    }
+
     if (mapRef.current !== null && map === null) {
       const instance = leaflet.map(mapRef.current, {
         center: {

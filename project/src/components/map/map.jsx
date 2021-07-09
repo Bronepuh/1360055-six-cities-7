@@ -33,7 +33,7 @@ function Map({ city, offers, currentOffers, selectedPoint }) {
       pins.addTo(map);
       setPoints(pins);
     }
-  }, [map, offers]);
+  }, [map, currentOffers]);
 
   useEffect(() => {
     if (map, selectedPoint) {
@@ -42,14 +42,8 @@ function Map({ city, offers, currentOffers, selectedPoint }) {
           pin.setIcon(iconActive);
         }
       });
-    } else if (map) {
-      map.eachLayer((pin) => {
-        if (pin.options.secretId) {
-          pin.setIcon(icon);
-        }
-      });
     }
-  }, [map, selectedPoint]);
+  }, [selectedPoint]);
 
   return (
     <div style={{ height: '100%' }} ref={mapRef} />

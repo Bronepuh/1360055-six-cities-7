@@ -26,18 +26,22 @@ const getLocationByName = function (cities, activeCity) {
 };
 
 const getOffersByCity = function (someOffers, activeCity) {
-  return someOffers.filter((offer) => offer.city.name === activeCity);
+  if (!someOffers.length) {
+    return [];
+  } else {
+    return someOffers.filter((offer) => offer.city.name === activeCity);
+  }
 };
 
-const compareByPriceToHight = function(a, b) {
+const compareByPriceToHight = function (a, b) {
   return a.price - b.price;
 };
 
-const compareByPriceToLow = function(a, b) {
+const compareByPriceToLow = function (a, b) {
   return b.price - a.price;
 };
 
-const compareTopRate = function(a, b) {
+const compareTopRate = function (a, b) {
   return b.rating - a.rating;
 };
 
@@ -65,4 +69,4 @@ const sortByType = function (someCurrentOffers, someType) {
   }
 };
 
-export { getStarRating, getDate, getLocationByName, getOffersByCity, sortByType};
+export { getStarRating, getDate, getLocationByName, getOffersByCity, sortByType };

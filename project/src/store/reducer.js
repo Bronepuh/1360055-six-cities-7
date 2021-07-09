@@ -1,7 +1,7 @@
 import { ActionType } from './action';
 import { CITIES } from '../const';
 
-const DEFAULT_CITY = 'Amsterdam';
+const DEFAULT_CITY = 'Paris';
 
 const initialState = {
   activeCity: DEFAULT_CITY,
