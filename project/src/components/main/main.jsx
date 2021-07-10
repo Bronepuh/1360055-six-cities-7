@@ -12,12 +12,14 @@ import citiesType from '../../prop-types/cities.type';
 import { getLocationByName, getOffersByCity } from '../../common';
 import { sortByType } from '../../common';
 import { SortType } from '../../const';
+import { Link } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
 
-function WelcomeScreen({ activeCity, cities, offers }) {
+function WelcomeScreen({ activeCity, cities, offers, isDataLoaded, authorizationStatus }) {
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [newSortType, setNewSortType] = useState(SortType.POPULAR);
 
-  if (offers.length) {
+  if (isDataLoaded) {
     const currentCity = getLocationByName(cities, activeCity);
     const offersByCity = getOffersByCity(offers, activeCity);
     const sortedOffers = sortByType(offersByCity, newSortType);
@@ -42,18 +44,21 @@ function WelcomeScreen({ activeCity, cities, offers }) {
               </div>
               <nav className='header__nav'>
                 <ul className='header__nav-list'>
-                  <li className='header__nav-item user'>
-                    <a className='header__nav-link header__nav-link--profile' href='#'>
-                      <div className='header__avatar-wrapper user__avatar-wrapper'>
-                      </div>
-                      <span className='header__user-name user__name'>Oliver.conner@gmail.com</span>
-                    </a>
-                  </li>
-                  <li className='header__nav-item'>
-                    <a className='header__nav-link' href='#'>
-                      <span className='header__signout'>Sign out</span>
-                    </a>
-                  </li>
+                  {authorizationStatus === AuthorizationStatus.AUTH &&
+                    <li className='header__nav-item user'>
+                      <a className='header__nav-link header__nav-link--profile' href='#'>
+                        <div className='header__avatar-wrapper user__avatar-wrapper'>
+                        </div>
+                        <span className='header__user-name user__name'>Oliver.conner@gmail.com</span>
+                      </a>
+                    </li>}
+
+                  {authorizationStatus === AuthorizationStatus.NO_AUTH &&
+                    <li className='header__nav-item'>
+                      <Link className='header__nav-link' to={AppRoute.SIGN_IN}>
+                        <span className='header__signout'>Sign in</span>
+                      </Link>
+                    </li>}
                 </ul>
               </nav>
             </div>
@@ -85,24 +90,24 @@ function WelcomeScreen({ activeCity, cities, offers }) {
         </main>
       </div>
     );
-  } else {
-    return <Spinner />;
   }
+  return <Spinner />;
 }
 
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
   cities: state.cities,
   offers: state.offers,
-  sortType: state.sortType,
-  offersByCity1: state.offersByCity1,
+  isDataLoaded: state.isDataLoaded,
+  authorizationStatus: state.authorizationStatus,
 });
 
 WelcomeScreen.propTypes = {
   activeCity: PropTypes.string.isRequired,
   cities: arrayOf(citiesType).isRequired,
   offers: PropTypes.arrayOf(offerType.isRequired),
-  hotels: PropTypes.array,
+  isDataLoaded: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, null)(WelcomeScreen);

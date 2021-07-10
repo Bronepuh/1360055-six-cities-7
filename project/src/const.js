@@ -106,4 +106,16 @@ const SortType = {
   TOP_RATE: 'Top rated first',
 };
 
-export { AppRoute, icon, iconActive, commentGet, CITIES, SortType };
+const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+
+const APIRoute = {
+  HOTELS: '/hotels',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};
+
+export { AppRoute, icon, iconActive, commentGet, CITIES, SortType, AuthorizationStatus, APIRoute };
