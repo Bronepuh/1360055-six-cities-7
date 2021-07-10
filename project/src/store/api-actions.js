@@ -11,6 +11,17 @@ const fetchHotelList = () => (dispatch, _getState, api) => (
     })
 );
 
+const fetchHoteItem = (id) => (dispatch, _getState, api) => (
+  api.get(APIRoute.HOTELS + '/' + id)
+    .then((res) => {
+      console.log(res.data);
+      // const adaptedHotel = parseDataToState(res.data);
+      // console.log(adaptedHotel);
+      // dispatch(ActionCreator.setOffers(adaptedHotel));
+      return api.get(APIRoute.HOTELS + '/' + id + '/nearby')
+    }).then((res) => {console.log(res.data)}).catch((err) => console.log(err))
+);
+
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(() =>  dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
@@ -30,4 +41,4 @@ const logout = () => (dispatch, _getState, api) => (
     .then(() => dispatch(ActionCreator.logout()))
 );
 
-export { fetchHotelList, checkAuth, login, logout };
+export { fetchHotelList, checkAuth, login, logout, fetchHoteItem };

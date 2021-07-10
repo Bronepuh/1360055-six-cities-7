@@ -13,6 +13,7 @@ import Offers from '../offers/offers';
 import citiesType from '../../prop-types/cities.type';
 import offerType from '../../prop-types/offer.type';
 import { getLocationByName, getOffersByCity } from '../../common';
+import { fetchHoteItem } from '../../store/api-actions';
 
 const getOffer = function (someOffers, id) {
   return someOffers.find((element) => element.id === Number(id));
@@ -23,15 +24,21 @@ const getNeighbourhoodOffers = function (someOffers, someOffer) {
   return newOffers;
 };
 
-function Room({ activeCity, cities, offers }) {
+
+
+function Room({ activeCity, cities, offers, onLoad }) {
   const { id } = useParams();
   const [selectedPoint, setSelectedPoint] = useState(null);
+
+
 
   if (offers.length) {
     const currentOffer = getOffer(offers, id);
     const currentCity = getLocationByName(cities, activeCity);
     const currentOffers = getOffersByCity(offers, activeCity);
     const neighbourhoodOffers = getNeighbourhoodOffers(currentOffers, currentOffer);
+
+    onLoad(id)
 
     const handleListHover = function (offer) {
       setSelectedPoint(offer);
@@ -197,10 +204,16 @@ const mapStateToProps = (state) => ({
   cities: state.cities,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onLoad(id) {
+    dispatch(fetchHoteItem(id));
+  },
+});
+
 Room.propTypes = {
   activeCity: PropTypes.string.isRequired,
   cities: arrayOf(citiesType).isRequired,
   offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
 };
 
-export default connect(mapStateToProps, null)(Room);
+export default connect(mapStateToProps, mapDispatchToProps)(Room);
