@@ -13,7 +13,7 @@ import { getLocationByName, getOffersByCity } from '../../common';
 import { sortByType } from '../../common';
 import { SortType } from '../../const';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 
 function WelcomeScreen({ activeCity, cities, offers, isDataLoaded, authorizationStatus }) {
   const [selectedPoint, setSelectedPoint] = useState(null);
@@ -44,7 +44,7 @@ function WelcomeScreen({ activeCity, cities, offers, isDataLoaded, authorization
               </div>
               <nav className='header__nav'>
                 <ul className='header__nav-list'>
-                  {authorizationStatus === 'AUTH' &&
+                  {authorizationStatus === AuthorizationStatus.AUTH &&
                     <li className='header__nav-item user'>
                       <a className='header__nav-link header__nav-link--profile' href='#'>
                         <div className='header__avatar-wrapper user__avatar-wrapper'>
@@ -53,7 +53,7 @@ function WelcomeScreen({ activeCity, cities, offers, isDataLoaded, authorization
                       </a>
                     </li>}
 
-                  {authorizationStatus === 'NO_AUTH' &&
+                  {authorizationStatus === AuthorizationStatus.NO_AUTH &&
                     <li className='header__nav-item'>
                       <Link className='header__nav-link' to={AppRoute.SIGN_IN}>
                         <span className='header__signout'>Sign in</span>
@@ -90,9 +90,8 @@ function WelcomeScreen({ activeCity, cities, offers, isDataLoaded, authorization
         </main>
       </div>
     );
-  } else {
-    return <Spinner />;
   }
+  return <Spinner />;
 }
 
 const mapStateToProps = (state) => ({

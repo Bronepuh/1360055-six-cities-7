@@ -12,10 +12,11 @@ import offerType from '../../prop-types/offer.type';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 import Spinner from '../spinner/spinner';
+import {AuthorizationStatus} from '../../const';
 
 function App({ offers, authorizationStatus, isDataLoaded }) {
 
-  if (!isDataLoaded && authorizationStatus !== 'AUTH') {
+  if (!isDataLoaded && authorizationStatus !== AuthorizationStatus.AUTH) {
     return (
       <Spinner />
     );

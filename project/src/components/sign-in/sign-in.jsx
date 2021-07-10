@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { login } from '../../store/api-actions';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 
 function SignIn({ onSubmit, authorizationStatus }) {
   const loginRef = useRef();
   const passwordRef = useRef();
 
-  if (authorizationStatus === 'NO_AUTH') {
+  if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
 
     const handleSubmit = (evt) => {
       evt.preventDefault();
@@ -87,9 +87,8 @@ function SignIn({ onSubmit, authorizationStatus }) {
         </main>
       </div>
     );
-  } else {
-    return <Redirect to='/' />;
   }
+  return <Redirect to='/' />;
 }
 
 const mapStateToProps = (state) => ({

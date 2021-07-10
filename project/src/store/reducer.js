@@ -27,16 +27,18 @@ const reducer = (state = initialState, action) => {
         isDataLoaded: true,
       };
     }
-    case ActionType.REQUIRED_AUTHORIZATION:
+    case ActionType.REQUIRED_AUTHORIZATION: {
       return {
         ...state,
         authorizationStatus: action.payload,
       };
-    case ActionType.LOGOUT:
+    }
+    case ActionType.LOGOUT: {
       return {
         ...state,
         authorizationStatus: AuthorizationStatus.NO_AUTH,
       };
+    }
     default: {
       return state;
     }

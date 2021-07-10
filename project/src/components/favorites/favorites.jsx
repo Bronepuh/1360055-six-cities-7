@@ -7,7 +7,7 @@ import Spinner from '../spinner/spinner';
 import { connect } from 'react-redux';
 import { logout } from '../../store/api-actions';
 
-function Favorites({offers, isDataLoaded, logoutApp}) {
+function Favorites({ offers, isDataLoaded, logoutApp }) {
 
   const handleLogout = function (evt) {
     evt.preventDefault();
@@ -57,13 +57,13 @@ function Favorites({offers, isDataLoaded, logoutApp}) {
         </footer>
       </div>
     );
-  } else {
-    return <Spinner />;
   }
+  return <Spinner />;
 }
 
 Favorites.propTypes = {
   offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
+  logoutApp: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
