@@ -69,8 +69,8 @@ const sortByType = function (someCurrentOffers, someType) {
   }
 };
 
-const parseDataToState = function (data) {
-  return data.map((hotel) => ({
+const parseHotelToState = function (hotel) {
+  return {
     bedrooms: hotel.bedrooms,
     city: {
       location: {
@@ -103,7 +103,30 @@ const parseDataToState = function (data) {
     rating: hotel.rating,
     title: hotel.title,
     type: hotel.type,
-  }));
+  };
 };
 
-export { getStarRating, getDate, getLocationByName, getOffersByCity, sortByType, parseDataToState };
+const parseHotelsToState = function (hotels) {
+  return hotels.map((hotel) => (parseHotelToState(hotel)));
+};
+
+const parseCommentToState = function (comment) {
+  return {
+    comment: comment.comment,
+    date: comment.date,
+    id: comment.id,
+    rating: comment.rating,
+    user: {
+      avatarUrl: comment.user.avatar_url,
+      id: comment.user.id,
+      isPro: comment.user.is_pro,
+      name: comment.user.name,
+    },
+  };
+};
+
+const parseCommentsToState = function (comments) {
+  return comments.map((comment) => (parseCommentToState(comment)));
+};
+
+export { getStarRating, getDate, getLocationByName, getOffersByCity, sortByType, parseHotelsToState, parseHotelToState, parseCommentsToState };

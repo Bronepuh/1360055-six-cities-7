@@ -27,7 +27,6 @@ const store = createStore(
 store.dispatch(checkAuth());
 store.dispatch(fetchHotelList());
 
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
