@@ -15,7 +15,7 @@ import Spinner from '../spinner/spinner';
 
 function App({ offers, isDataLoaded }) {
 
-  if (!isDataLoaded && !offers !== null) {
+  if (!isDataLoaded && !offers.length !== null) {
     return (
       <Spinner />
     );

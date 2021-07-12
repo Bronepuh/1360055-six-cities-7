@@ -19,7 +19,7 @@ function WelcomeScreen({ activeCity, cities, offers, isDataLoaded, authorization
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [newSortType, setNewSortType] = useState(SortType.POPULAR);
 
-  if (!isDataLoaded) {
+  if (!isDataLoaded && !offers.length) {
     return <Spinner />;
   }
 

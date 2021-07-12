@@ -17,7 +17,7 @@ import { PropertyGallery } from '../property-gallery/property-gallery';
 
 function Room({ activeCity, cities, currentOffer, comments, authorizationStatus, onLoad, onSubmit, reFetch, nearby, isDataOfferByIdLoaded, isDataNearbyLoaded, isDataCommentsLoaded }) {
   const [selectedPoint, setSelectedPoint] = useState(null);
-  const [newComment, setNewComment] = useState({});
+  const [newComment, setNewComment] = useState({comment: '', rating: ''});
   const { id } = useParams();
 
   useEffect(() => {

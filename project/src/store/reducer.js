@@ -7,9 +7,9 @@ const DEFAULT_CITY = 'Paris';
 const initialState = {
   activeCity: DEFAULT_CITY,
   cities: CITIES,
-  offers: null,
+  offers: [],
   currentOffer: null,
-  nearby: null,
+  nearby: [],
   comments: [],
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   isDataLoaded: false,
