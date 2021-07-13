@@ -6,7 +6,7 @@ import Spinner from '../spinner/spinner';
 
 function Offers({ offers, onListHover }) {
 
-  if (!offers.length || !offers) {
+  if (!offers.length) {
     return <Spinner />;
   }
 
