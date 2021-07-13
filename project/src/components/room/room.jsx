@@ -1,6 +1,4 @@
 import { React, useEffect, useState } from 'react';
-import PropTypes, { arrayOf } from 'prop-types';
-import { connect } from 'react-redux';
 import ReviewForm from '../review-form/review-form';
 import ReviewList from '../review-list/review-list';
 import { useParams } from 'react-router-dom';
@@ -9,19 +7,34 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import Spinner from '../spinner/spinner';
 import Map from '../../components/map/map';
 import Offers from '../offers/offers';
-import citiesType from '../../prop-types/cities.type';
-import offerType from '../../prop-types/offer.type';
 import { getLocationByName } from '../../common';
 import { fetchHotelItem, fetchNearby, fetchComments, pushComment } from '../../store/api-actions';
 import { PropertyGallery } from '../property-gallery/property-gallery';
+import { useSelector, useDispatch } from 'react-redux';
+import { getActiveCity, getCities, getCurrentOffer, getNearby, getComments, getIsDataOfferByIdLoaded, getIsDataNearbyLoaded, getIsDataCommentsLoaded } from '../../store/data/selectors';
+import { getAuthorizationStatus } from '../../store/user/selectors';
 
-function Room({ activeCity, cities, currentOffer, comments, authorizationStatus, onLoad, onSubmit, reFetch, nearby, isDataOfferByIdLoaded, isDataNearbyLoaded, isDataCommentsLoaded }) {
+function Room() {
   const [selectedPoint, setSelectedPoint] = useState(null);
-  const [newComment, setNewComment] = useState({comment: '', rating: ''});
+  const [newComment, setNewComment] = useState({ comment: '', rating: '' });
   const { id } = useParams();
 
+  const activeCity = useSelector(getActiveCity);
+  const cities = useSelector(getCities);
+  const currentOffer = useSelector(getCurrentOffer);
+  const comments = useSelector(getComments);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const nearby = useSelector(getNearby);
+  const isDataOfferByIdLoaded = useSelector(getIsDataOfferByIdLoaded);
+  const isDataNearbyLoaded = useSelector(getIsDataNearbyLoaded);
+  const isDataCommentsLoaded = useSelector(getIsDataCommentsLoaded);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    onLoad(id);
+    dispatch(fetchHotelItem(id));
+    dispatch(fetchNearby(id));
+    dispatch(fetchComments(id));
   }, [id, comments.length, newComment]);
 
   if (!id || !isDataOfferByIdLoaded) {
@@ -38,9 +51,9 @@ function Room({ activeCity, cities, currentOffer, comments, authorizationStatus,
   );
 
   const handleCommentSubmit = function (data) {
-    onSubmit(data, Number(id));
+    dispatch(pushComment(data, Number(id)));
     setNewComment(data);
-    reFetch(id);
+    dispatch(fetchComments(id));
   };
 
   return (
@@ -174,49 +187,4 @@ function Room({ activeCity, cities, currentOffer, comments, authorizationStatus,
   );
 }
 
-const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
-  cities: state.cities,
-  currentOffer: state.currentOffer,
-  comments: state.comments,
-  // isDataLoaded: state.isDataLoaded,
-  authorizationStatus: state.authorizationStatus,
-  nearby: state.nearby,
-  isDataOfferByIdLoaded: state.isDataOfferByIdLoaded,
-  isDataNearbyLoaded: state.isDataNearbyLoaded,
-  isDataCommentsLoaded: state.isDataCommentsLoaded,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoad(id) {
-    dispatch(fetchHotelItem(id));
-    dispatch(fetchNearby(id));
-    dispatch(fetchComments(id));
-  },
-  onSubmit(data, id) {
-    dispatch(pushComment(data, Number(id)));
-  },
-  reFetch(id){
-    dispatch(fetchComments(id));
-  },
-});
-
-Room.propTypes = {
-  activeCity: PropTypes.string.isRequired,
-  cities: arrayOf(citiesType).isRequired,
-  nearby: PropTypes.arrayOf(offerType.isRequired),
-  comments: PropTypes.arrayOf(PropTypes.shape({
-    comment: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-  })),
-  currentOffer: offerType,
-  onLoad: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  reFetch: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  isDataOfferByIdLoaded: PropTypes.bool.isRequired,
-  isDataNearbyLoaded: PropTypes.bool.isRequired,
-  isDataCommentsLoaded: PropTypes.bool.isRequired,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Room);
+export default Room;
