@@ -12,11 +12,10 @@ import offerType from '../../prop-types/offer.type';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 import Spinner from '../spinner/spinner';
-import {AuthorizationStatus} from '../../const';
 
-function App({ offers, authorizationStatus, isDataLoaded }) {
+function App({ offers, isDataLoaded }) {
 
-  if (!isDataLoaded && authorizationStatus !== AuthorizationStatus.AUTH) {
+  if (!isDataLoaded && !offers.length) {
     return (
       <Spinner />
     );
@@ -49,13 +48,11 @@ function App({ offers, authorizationStatus, isDataLoaded }) {
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
-  authorizationStatus: state.authorizationStatus,
   isDataLoaded: state.isDataLoaded,
 });
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
+  offers: PropTypes.arrayOf(offerType.isRequired),
   isDataLoaded: PropTypes.bool.isRequired,
 };
 

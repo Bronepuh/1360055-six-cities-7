@@ -3,14 +3,6 @@ import 'leaflet/dist/leaflet.css';
 
 const AVATAR_URL = 'https://i.pravatar.cc/128';
 
-const AppRoute = {
-  MAIN: '/',
-  SIGN_IN: '/login/',
-  FAVORITES: '/favorites/',
-  ROOM_$ID: '/offer/:id/',
-  OFFER: '/offer/',
-};
-
 const icon = leaflet.icon({
   iconUrl: '/img/pin.svg',
   iconSize: [30, 30],
@@ -112,10 +104,23 @@ const AuthorizationStatus = {
   UNKNOWN: 'UNKNOWN',
 };
 
+const AppRoute = {
+  MAIN: '/',
+  NOT_FOUND: '/not-found',
+  SIGN_IN: '/login/',
+  FAVORITES: '/favorites/',
+  ROOM_$ID: '/offer/:id/',
+  OFFER: '/offer/',
+};
+
 const APIRoute = {
   HOTELS: '/hotels',
+  HOTEL: '/hotels/',
+  NEARBY: '/nearby',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  COMMENTS: '/comments',
+  COMMENT: '/comments/',
 };
 
 export { AppRoute, icon, iconActive, commentGet, CITIES, SortType, AuthorizationStatus, APIRoute };

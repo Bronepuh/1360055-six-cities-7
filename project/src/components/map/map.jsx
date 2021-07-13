@@ -6,7 +6,7 @@ import offerType from '../../prop-types/offer.type';
 import { icon, iconActive } from '../../const';
 import useMap from '../../hooks/useMap';
 
-function Map({ city, offers, currentOffers, selectedPoint }) {
+function Map({ city, currentOffers, selectedPoint }) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city.location);
 
@@ -33,7 +33,7 @@ function Map({ city, offers, currentOffers, selectedPoint }) {
       pins.addTo(map);
       setPoints(pins);
     }
-  }, [map, currentOffers]);
+  }, [map, currentOffers, selectedPoint]);
 
   useEffect(() => {
     if (map, selectedPoint) {
@@ -59,7 +59,6 @@ Map.propTypes = {
       zoom: PropTypes.number.isRequired,
     }),
   }),
-  offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
   currentOffers: PropTypes.arrayOf(offerType.isRequired).isRequired,
   selectedPoint: PropTypes.object,
 };

@@ -2,8 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '../card/card';
 import offerType from '../../prop-types/offer.type';
+import Spinner from '../spinner/spinner';
 
 function Offers({ offers, onListHover }) {
+
+  if (!offers.length) {
+    return <Spinner />;
+  }
 
   return (
     <div className='cities__places-list places__list tabs__content'>
@@ -13,7 +18,7 @@ function Offers({ offers, onListHover }) {
 }
 
 Offers.propTypes = {
-  offers: PropTypes.arrayOf(offerType.isRequired).isRequired,
+  offers: PropTypes.arrayOf(offerType.isRequired),
   onListHover: PropTypes.func,
 };
 
