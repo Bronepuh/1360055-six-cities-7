@@ -1,3 +1,5 @@
+import {createAction} from '@reduxjs/toolkit';
+
 const ActionType = {
   SELECT_CITY: 'main/selectCity',
   SET_OFFERS: 'main/setOffers',
@@ -9,40 +11,34 @@ const ActionType = {
   REDIRECT_TO_ROUTE: 'game/redirectToRoute',
 };
 
-const ActionCreator = {
-  selectCity: (selectedCity) => ({
-    type: ActionType.SELECT_CITY,
-    payload: selectedCity,
-  }),
-  setOffers: (offers) => ({
-    type: ActionType.SET_OFFERS,
-    payload: offers,
-  }),
-  setOfferById: (offer) => ({
-    type: ActionType.SET_OFFER_BY_ID,
-    payload: offer,
-  }),
-  setNearby: (offers) => ({
-    type: ActionType.SET_NEARBY,
-    payload: offers,
-  }),
-  setComments: (comments) => (
-    {
-      type: ActionType.SET_COMMENTS,
-      payload: comments,
-    }),
-  requireAuthorization: (status) => (
-    {
-      type: ActionType.REQUIRED_AUTHORIZATION,
-      payload: status,
-    }),
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
-    payload: url,
-  }),
-};
+const selectCity = createAction(ActionType.SELECT_CITY, (selectedCity) => ({
+  payload: selectedCity,
+}));
 
-export { ActionType, ActionCreator };
+const setOffers = createAction(ActionType.SET_OFFERS, (offers) => ({
+  payload: offers,
+}));
+
+const setOfferById = createAction(ActionType.SET_OFFER_BY_ID, (offer) => ({
+  payload: offer,
+}));
+
+const setNearby = createAction(ActionType.SET_NEARBY, (offers) => ({
+  payload: offers,
+}));
+
+const setComments = createAction(ActionType.SET_COMMENTS, (comments) => ({
+  payload: comments,
+}));
+
+const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => ({
+  payload: status,
+}));
+
+const logout = createAction(ActionType.LOGOUT);
+
+const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({
+  payload: url,
+}));
+
+export { ActionType, selectCity, setOffers, setOfferById, setNearby, setComments, requireAuthorization, logout, redirectToRoute };

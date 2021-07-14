@@ -1,4 +1,7 @@
-import { SortType } from './const';
+import { SortType, AuthorizationStatus } from './const';
+
+const isCheckedAuth = (authorizationStatus) =>
+  authorizationStatus === AuthorizationStatus.UNKNOWN;
 
 const MAX_PERCENTS = 100;
 const MAX_OFFER_RATING = 5;
@@ -129,4 +132,4 @@ const parseCommentsToState = function (comments) {
   return comments.map((comment) => (parseCommentToState(comment)));
 };
 
-export { getStarRating, getDate, getLocationByName, getOffersByCity, sortByType, parseHotelsToState, parseHotelToState, parseCommentsToState };
+export { isCheckedAuth, getStarRating, getDate, getLocationByName, getOffersByCity, sortByType, parseHotelsToState, parseHotelToState, parseCommentsToState };

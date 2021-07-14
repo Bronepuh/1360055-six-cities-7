@@ -18,7 +18,7 @@ function Card({offer, onListHover}) {
     };
 
     return (
-      <article className='cities__place-card place-card' onMouseOver={handleCardOver} onMouseOut={handleCardOut}>
+      <article className='cities__place-card place-card' onMouseEnter={handleCardOver} onMouseLeave={handleCardOut}>
         {offer.isPremium &&
           <div className='place-card__mark'>
             <span>Premium</span>

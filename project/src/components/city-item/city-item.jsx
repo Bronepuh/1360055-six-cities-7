@@ -1,12 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { ActionCreator } from '../../store/action';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectCity } from '../../store/action';
+import { getActiveCity } from '../../store/data/selectors';
 
-function CityItem({ cityName, activeCity, onCitySelect }) {
+function CityItem({ cityName }) {
+
+  const activeCity = useSelector(getActiveCity);
+
+  const dispatch = useDispatch();
+
   const handleCityClick = (evt) => {
     evt.preventDefault();
-    onCitySelect(cityName);
+    dispatch(selectCity(cityName));
   };
 
   return (
@@ -20,18 +26,6 @@ function CityItem({ cityName, activeCity, onCitySelect }) {
 
 CityItem.propTypes = {
   cityName: PropTypes.string,
-  activeCity: PropTypes.string,
-  onCitySelect: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onCitySelect(selectedCity) {
-    dispatch(ActionCreator.selectCity(selectedCity));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CityItem);
+export default CityItem;

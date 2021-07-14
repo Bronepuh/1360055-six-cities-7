@@ -1,23 +1,28 @@
 import { React, useState } from 'react';
-import PropTypes, { arrayOf } from 'prop-types';
-import { connect } from 'react-redux';
 import 'leaflet/dist/leaflet.css';
 import Spinner from '../spinner/spinner';
 import CityList from '../city-list/city-list';
 import SortForm from '../sort-form/sort-form';
 import Offers from '../offers/offers';
 import Map from '../../components/map/map';
-import offerType from '../../prop-types/offer.type';
-import citiesType from '../../prop-types/cities.type';
 import { getLocationByName, getOffersByCity } from '../../common';
 import { sortByType } from '../../common';
 import { SortType } from '../../const';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { useSelector } from 'react-redux';
+import { getActiveCity, getCities, getOffers, getIsDataLoaded } from '../../store/data/selectors';
+import { getAuthorizationStatus } from '../../store/user/selectors';
 
-function WelcomeScreen({ activeCity, cities, offers, isDataLoaded, authorizationStatus }) {
+function WelcomeScreen() {
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [newSortType, setNewSortType] = useState(SortType.POPULAR);
+
+  const activeCity = useSelector(getActiveCity);
+  const cities = useSelector(getCities);
+  const offers = useSelector(getOffers);
+  const isDataLoaded = useSelector(getIsDataLoaded);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   if (!isDataLoaded && !offers.length) {
     return <Spinner />;
@@ -95,20 +100,4 @@ function WelcomeScreen({ activeCity, cities, offers, isDataLoaded, authorization
   );
 }
 
-const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
-  cities: state.cities,
-  offers: state.offers,
-  isDataLoaded: state.isDataLoaded,
-  authorizationStatus: state.authorizationStatus,
-});
-
-WelcomeScreen.propTypes = {
-  activeCity: PropTypes.string.isRequired,
-  cities: arrayOf(citiesType).isRequired,
-  offers: PropTypes.arrayOf(offerType.isRequired),
-  isDataLoaded: PropTypes.bool.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-};
-
-export default connect(mapStateToProps, null)(WelcomeScreen);
+export default WelcomeScreen;
