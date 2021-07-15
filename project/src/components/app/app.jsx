@@ -41,7 +41,7 @@ function App() {
           render={() => <Favorites offers={offers} />}
         />
         <Route exact path={AppRoute.ROOM_$ID}>
-          <Room />
+          <Room offers={offers}/>
         </Route>
         <Route>
           <Error404 />
