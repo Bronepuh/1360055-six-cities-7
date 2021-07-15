@@ -1,4 +1,4 @@
-import { setOffers, setOfferById, setNearby, setComments, requireAuthorization, logout as closeSession, redirectToRoute } from './action';
+import { setOffers, setOfferById, setNearby, setComments, setFavorites, requireAuthorization, logout as closeSession, redirectToRoute, changeFavoriteStatus } from './action';
 import { APIRoute } from '../const';
 import { parseHotelsToState, parseHotelToState, parseCommentsToState } from '../common';
 import { AppRoute, AuthorizationStatus } from '../const';
@@ -38,6 +38,26 @@ const fetchComments = (id) => (dispatch, _getState, api) => (
     })
 );
 
+const fetchFavorites = () => (dispatch, _getState, api) => (
+  api.get(APIRoute.FAVORITES)
+    .then((res) => {
+      const adaptedHotels = parseHotelsToState(res.data);
+      dispatch(setFavorites(adaptedHotels));
+    }).catch((err) => {
+      throw err;
+    })
+);
+
+const toggleFavoriteStatus = (offer) => (dispatch, _getState, api) => {
+  const updatedStatus = offer.isFavorite ? 0 : 1;
+  return api.post(`${APIRoute.FAVORITE}${offer.id}/${updatedStatus}`)
+    .then((res) => {
+      dispatch(changeFavoriteStatus(parseHotelToState(res.data)));
+    }).catch((err) => {
+      throw err;
+    });
+};
+
 const pushComment = (data, id) => (dispatch, _getState, api) => (
   api.post(APIRoute.COMMENT + id, data)
     .then(api.get(APIRoute.COMMENT + id)));
@@ -61,4 +81,4 @@ const logout = () => (dispatch, _getState, api) => (
     .then(() => dispatch(closeSession()))
 );
 
-export { fetchHotelList, checkAuth, login, logout, fetchHotelItem, fetchNearby, fetchComments, pushComment };
+export { fetchHotelList, checkAuth, login, logout, fetchHotelItem, fetchNearby, fetchComments, fetchFavorites, toggleFavoriteStatus, pushComment };

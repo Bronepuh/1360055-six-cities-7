@@ -121,6 +121,8 @@ const APIRoute = {
   LOGOUT: '/logout',
   COMMENTS: '/comments',
   COMMENT: '/comments/',
+  FAVORITES: '/favorite',
+  FAVORITE: '/favorite/',
 };
 
 export { AppRoute, icon, iconActive, commentGet, CITIES, SortType, AuthorizationStatus, APIRoute };
