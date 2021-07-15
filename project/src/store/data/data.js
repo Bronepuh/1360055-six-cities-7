@@ -26,6 +26,7 @@ const data = createReducer(initialState, (builder) => {
     })
     .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
+      state.isDataLoaded = true;
     })
     .addCase(setOfferById, (state, action) => {
       state.currentOffer = action.payload;

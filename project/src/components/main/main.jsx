@@ -3,11 +3,11 @@ import 'leaflet/dist/leaflet.css';
 import offerType from '../../prop-types/offer.type';
 import { PropTypes } from 'prop-types';
 import Spinner from '../spinner/spinner';
+import MainEmpty from '../main-empty/main-empty';
 import CityList from '../city-list/city-list';
 import SortForm from '../sort-form/sort-form';
 import Offers from '../offers/offers';
 import Map from '../../components/map/map';
-import MainEmpty from '../../components/main-empty/main-empty';
 import { getLocationByName, getOffersByCity } from '../../common';
 import { sortByType } from '../../common';
 import { SortType } from '../../const';
@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 import { getActiveCity, getCities, getIsDataLoaded } from '../../store/data/selectors';
 import { getAuthorizationStatus } from '../../store/user/selectors';
 
-function WelcomeScreen({offers}) {
+function WelcomeScreen({ offers }) {
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [newSortType, setNewSortType] = useState(SortType.POPULAR);
 
@@ -26,7 +26,7 @@ function WelcomeScreen({offers}) {
   const isDataLoaded = useSelector(getIsDataLoaded);
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
-  if (!isDataLoaded && !offers.length) {
+  if (!isDataLoaded) {
     return <Spinner />;
   }
 
@@ -91,7 +91,8 @@ function WelcomeScreen({offers}) {
                 <SortForm onSortTypeSelectClick={handleSortTypeSelect} newSortType={newSortType} />
                 <Offers offers={sortedOffers} onListHover={handleListHover} />
               </section>}
-            {offers.length === 0 && <MainEmpty />}
+            {offers.length === 0 &&
+              <MainEmpty />}
             <div className='cities__right-section'>
               <section className='cities__map' id="map">
                 <Map city={currentCity} offers={offers} currentOffers={offersByCity} selectedPoint={selectedPoint} />
