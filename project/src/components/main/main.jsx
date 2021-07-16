@@ -1,6 +1,9 @@
 import { React, useState } from 'react';
 import 'leaflet/dist/leaflet.css';
+import offerType from '../../prop-types/offer.type';
+import { PropTypes } from 'prop-types';
 import Spinner from '../spinner/spinner';
+import MainEmpty from '../main-empty/main-empty';
 import CityList from '../city-list/city-list';
 import SortForm from '../sort-form/sort-form';
 import Offers from '../offers/offers';
@@ -11,20 +14,19 @@ import { SortType } from '../../const';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useSelector } from 'react-redux';
-import { getActiveCity, getCities, getOffers, getIsDataLoaded } from '../../store/data/selectors';
+import { getActiveCity, getCities, getIsDataLoaded } from '../../store/data/selectors';
 import { getAuthorizationStatus } from '../../store/user/selectors';
 
-function WelcomeScreen() {
+function WelcomeScreen({ offers }) {
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [newSortType, setNewSortType] = useState(SortType.POPULAR);
 
   const activeCity = useSelector(getActiveCity);
   const cities = useSelector(getCities);
-  const offers = useSelector(getOffers);
   const isDataLoaded = useSelector(getIsDataLoaded);
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
-  if (!isDataLoaded && !offers.length) {
+  if (!isDataLoaded) {
     return <Spinner />;
   }
 
@@ -82,12 +84,15 @@ function WelcomeScreen() {
         </div>
         <div className='cities'>
           <div className='cities__places-container container'>
-            <section className='cities__places places'>
-              <h2 className='visually-hidden'>Places</h2>
-              <b className='places__found'>{offersByCity.length} places to stay in {activeCity}</b>
-              <SortForm onSortTypeSelectClick={handleSortTypeSelect} newSortType={newSortType} />
-              <Offers offers={sortedOffers} onListHover={handleListHover} />
-            </section>
+            {offers.length > 0 &&
+              <section className='cities__places places'>
+                <h2 className='visually-hidden'>Places</h2>
+                <b className='places__found'>{offersByCity.length} places to stay in {activeCity}</b>
+                <SortForm onSortTypeSelectClick={handleSortTypeSelect} newSortType={newSortType} />
+                <Offers offers={sortedOffers} onListHover={handleListHover} />
+              </section>}
+            {offers.length === 0 &&
+              <MainEmpty />}
             <div className='cities__right-section'>
               <section className='cities__map' id="map">
                 <Map city={currentCity} offers={offers} currentOffers={offersByCity} selectedPoint={selectedPoint} />
@@ -99,5 +104,9 @@ function WelcomeScreen() {
     </div>
   );
 }
+
+WelcomeScreen.propTypes = {
+  offers: PropTypes.arrayOf(offerType.isRequired),
+};
 
 export default WelcomeScreen;

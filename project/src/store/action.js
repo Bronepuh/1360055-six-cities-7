@@ -1,4 +1,4 @@
-import {createAction} from '@reduxjs/toolkit';
+import { createAction } from '@reduxjs/toolkit';
 
 const ActionType = {
   SELECT_CITY: 'main/selectCity',
@@ -6,6 +6,8 @@ const ActionType = {
   SET_OFFER_BY_ID: 'main/setOfferById',
   SET_NEARBY: 'main/setNearby',
   SET_COMMENTS: 'main/setComments',
+  SET_FAVORITES: 'main/setFavorites',
+  CHANGE_FAVORITE_STATUS: 'main/changeFavoriteStatus',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
   REDIRECT_TO_ROUTE: 'game/redirectToRoute',
@@ -31,6 +33,15 @@ const setComments = createAction(ActionType.SET_COMMENTS, (comments) => ({
   payload: comments,
 }));
 
+const setFavorites = createAction(ActionType.SET_FAVORITES, (hotels) => ({
+  payload: hotels,
+}));
+
+const changeFavoriteStatus = createAction(ActionType.CHANGE_FAVORITE_STATUS, (offer) => (
+  {
+    payload: offer,
+  }));
+
 const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => ({
   payload: status,
 }));
@@ -41,4 +52,4 @@ const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({
   payload: url,
 }));
 
-export { ActionType, selectCity, setOffers, setOfferById, setNearby, setComments, requireAuthorization, logout, redirectToRoute };
+export { ActionType, selectCity, setOffers, setOfferById, setNearby, setComments, setFavorites, changeFavoriteStatus, requireAuthorization, logout, redirectToRoute };

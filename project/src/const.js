@@ -115,12 +115,11 @@ const AppRoute = {
 
 const APIRoute = {
   HOTELS: '/hotels',
-  HOTEL: '/hotels/',
   NEARBY: '/nearby',
   LOGIN: '/login',
   LOGOUT: '/logout',
   COMMENTS: '/comments',
-  COMMENT: '/comments/',
+  FAVORITES: '/favorite',
 };
 
 export { AppRoute, icon, iconActive, commentGet, CITIES, SortType, AuthorizationStatus, APIRoute };

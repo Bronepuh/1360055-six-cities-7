@@ -1,24 +1,32 @@
-import { React } from 'react';
+import { React, useEffect } from 'react';
+import { PropTypes } from 'prop-types';
 import FavoriteList from '../favorite-list/favotite-list';
 import { AppRoute } from '../../const';
+import offerType from '../../prop-types/offer.type';
+import { Link } from 'react-router-dom';
 import Spinner from '../spinner/spinner';
-import { logout } from '../../store/api-actions';
+import { fetchFavorites, logout } from '../../store/api-actions';
 import { useSelector, useDispatch } from 'react-redux';
-import { getOffers } from '../../store/data/selectors';
+import { getFavorites } from '../../store/data/selectors';
 import { getAuthorizationStatus } from '../../store/user/selectors';
+import { AuthorizationStatus } from '../../const';
 
-function Favorites() {
-  const offers = useSelector(getOffers);
+function Favorites({ offers }) {
   const authorizationStatus = useSelector(getAuthorizationStatus);
+  const favorites = useSelector(getFavorites);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, [offers]);
 
   const handleLogout = function (evt) {
     evt.preventDefault();
     dispatch(logout());
   };
 
-  if (authorizationStatus !== 'AUTH') {
+  if (authorizationStatus !== AuthorizationStatus.AUTH) {
     return <Spinner />;
   }
 
@@ -28,9 +36,9 @@ function Favorites() {
         <div className='container'>
           <div className='header__wrapper'>
             <div className='header__left'>
-              <a className='header__logo-link' href={AppRoute.MAIN}>
+              <Link className='header__logo-link' to={AppRoute.MAIN}>
                 <img className='header__logo' src='img/logo.svg' alt='6 cities logo' width='81' height='41' />
-              </a>
+              </Link>
             </div>
             <nav className='header__nav'>
               <ul className='header__nav-list'>
@@ -54,16 +62,20 @@ function Favorites() {
 
       <main className='page__main page__main--favorites'>
         <div className='page__favorites-container container'>
-          <FavoriteList offers={offers} />
+          <FavoriteList offers={favorites} />
         </div>
       </main>
       <footer className='footer container'>
-        <a className='footer__logo-link' href={AppRoute.MAIN}>
+        <Link className='footer__logo-link' to={AppRoute.MAIN}>
           <img className='footer__logo' src='img/logo.svg' alt='6 cities logo' width='64' height='33' />
-        </a>
+        </Link>
       </footer>
     </div>
   );
 }
+
+Favorites.propTypes = {
+  offers: PropTypes.arrayOf(offerType.isRequired),
+};
 
 export default Favorites;

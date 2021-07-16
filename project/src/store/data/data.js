@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { CITIES } from '../../const';
-import { selectCity, setOffers, setOfferById, setNearby, setComments } from '../action';
+import { selectCity, setOffers, setOfferById, setNearby, setComments, setFavorites, changeFavoriteStatus } from '../action';
 
 const DEFAULT_CITY = 'Paris';
 
@@ -11,10 +11,12 @@ const initialState = {
   currentOffer: null,
   nearby: [],
   comments: [],
+  favorites: [],
   isDataLoaded: false,
   isDataOfferByIdLoaded: false,
   isDataNearbyLoaded: false,
   isDataCommentsLoaded: false,
+  isFavoritesLoaded: false,
 };
 
 const data = createReducer(initialState, (builder) => {
@@ -24,6 +26,7 @@ const data = createReducer(initialState, (builder) => {
     })
     .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
+      state.isDataLoaded = true;
     })
     .addCase(setOfferById, (state, action) => {
       state.currentOffer = action.payload;
@@ -36,6 +39,13 @@ const data = createReducer(initialState, (builder) => {
     .addCase(setComments, (state, action) => {
       state.comments = action.payload;
       state.isDataCommentsLoaded = true;
+    })
+    .addCase(setFavorites, (state, action) => {
+      state.favorites = action.payload;
+      state.isFavoritesLoaded = true;
+    })
+    .addCase(changeFavoriteStatus, (state, action) => {
+      state.offers = state.offers.map((offer)=> action.payload.id === offer.id ? action.payload : offer);
     });
 });
 

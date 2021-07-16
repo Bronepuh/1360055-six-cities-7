@@ -30,7 +30,7 @@ function App() {
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <Main />
+          <Main offers={offers}/>
         </Route>
         <Route exact path={AppRoute.SIGN_IN}>
           <SingIn />
@@ -41,7 +41,7 @@ function App() {
           render={() => <Favorites offers={offers} />}
         />
         <Route exact path={AppRoute.ROOM_$ID}>
-          <Room offers={offers} />
+          <Room offers={offers}/>
         </Route>
         <Route>
           <Error404 />

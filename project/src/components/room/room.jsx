@@ -1,4 +1,6 @@
 import { React, useEffect, useState } from 'react';
+import offerType from '../../prop-types/offer.type';
+import { PropTypes } from 'prop-types';
 import ReviewForm from '../review-form/review-form';
 import ReviewList from '../review-list/review-list';
 import { useParams } from 'react-router-dom';
@@ -8,27 +10,27 @@ import Spinner from '../spinner/spinner';
 import Map from '../../components/map/map';
 import Offers from '../offers/offers';
 import { getLocationByName } from '../../common';
-import { fetchHotelItem, fetchNearby, fetchComments, pushComment } from '../../store/api-actions';
+import { fetchHotelItem, fetchNearby, fetchComments, pushComment, toggleFavoriteStatus } from '../../store/api-actions';
 import { PropertyGallery } from '../property-gallery/property-gallery';
 import { useSelector, useDispatch } from 'react-redux';
-import { getActiveCity, getCities, getCurrentOffer, getNearby, getComments, getIsDataOfferByIdLoaded, getIsDataNearbyLoaded, getIsDataCommentsLoaded } from '../../store/data/selectors';
+import { getActiveCity, getCities, getNearby, getComments, getIsDataNearbyLoaded, getIsDataCommentsLoaded } from '../../store/data/selectors';
 import { getAuthorizationStatus } from '../../store/user/selectors';
 
-function Room() {
+const getOffer = (SomeOffers, offerId) => SomeOffers.find((offer) => offer.id === offerId);
+
+function Room({ offers }) {
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [newComment, setNewComment] = useState({ comment: '', rating: '' });
   const { id } = useParams();
 
+  const currentOffer = getOffer(offers, Number(id));
   const activeCity = useSelector(getActiveCity);
   const cities = useSelector(getCities);
-  const currentOffer = useSelector(getCurrentOffer);
   const comments = useSelector(getComments);
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const nearby = useSelector(getNearby);
-  const isDataOfferByIdLoaded = useSelector(getIsDataOfferByIdLoaded);
   const isDataNearbyLoaded = useSelector(getIsDataNearbyLoaded);
   const isDataCommentsLoaded = useSelector(getIsDataCommentsLoaded);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,7 +39,7 @@ function Room() {
     dispatch(fetchComments(id));
   }, [id, comments.length, newComment]);
 
-  if (!id || !isDataOfferByIdLoaded) {
+  if (!id || !offers.length) {
     return <Spinner />;
   }
 
@@ -54,6 +56,10 @@ function Room() {
     dispatch(pushComment(data, Number(id)));
     setNewComment(data);
     dispatch(fetchComments(id));
+  };
+
+  const handleFavoriteClick = () => {
+    dispatch(toggleFavoriteStatus(currentOffer));
   };
 
   return (
@@ -99,7 +105,7 @@ function Room() {
                 <h1 className='property__name'>
                   {currentOffer.title}
                 </h1>
-                <button className='property__bookmark-button button' type='button'>
+                <button className={currentOffer.isFavorite ? 'property__bookmark-button property__bookmark-button--active button' : 'property__bookmark-button button'} type='button' onClick={handleFavoriteClick}>
                   <svg className='property__bookmark-icon' width='31' height='33'>
                     <use xlinkHref='#icon-bookmark'></use>
                   </svg>
@@ -186,5 +192,9 @@ function Room() {
     </div>
   );
 }
+
+Room.propTypes = {
+  offers: PropTypes.arrayOf(offerType.isRequired),
+};
 
 export default Room;
