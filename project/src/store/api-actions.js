@@ -12,14 +12,14 @@ const fetchHotelList = () => (dispatch, _getState, api) => (
 );
 
 const fetchHotelItem = (id) => (dispatch, _getState, api) => (
-  api.get(APIRoute.HOTEL + id)
+  api.get(`${APIRoute.HOTELS}/${id}`)
     .then((res) => {
       const adaptedHotel = parseHotelToState(res.data);
       dispatch(setOfferById(adaptedHotel));
     }).catch(() => dispatch(redirectToRoute(AppRoute.NOT_FOUND))));
 
 const fetchNearby = (id) => (dispatch, _getState, api) => (
-  api.get(APIRoute.HOTEL + id + APIRoute.NEARBY)
+  api.get(`${APIRoute.HOTELS}/${id}${APIRoute.NEARBY}`)
     .then((res) => {
       const adaptedHotels = parseHotelsToState(res.data);
       dispatch(setNearby(adaptedHotels));
@@ -29,7 +29,7 @@ const fetchNearby = (id) => (dispatch, _getState, api) => (
 );
 
 const fetchComments = (id) => (dispatch, _getState, api) => (
-  api.get(APIRoute.COMMENT + id)
+  api.get(`${APIRoute.COMMENTS}/${id}`)
     .then((res) => {
       const adaptedComments = parseCommentsToState(res.data);
       dispatch(setComments(adaptedComments));
@@ -50,7 +50,7 @@ const fetchFavorites = () => (dispatch, _getState, api) => (
 
 const toggleFavoriteStatus = (offer) => (dispatch, _getState, api) => {
   const updatedStatus = offer.isFavorite ? 0 : 1;
-  return api.post(`${APIRoute.FAVORITE}${offer.id}/${updatedStatus}`)
+  return api.post(`${APIRoute.FAVORITES}/${offer.id}/${updatedStatus}`)
     .then((res) => {
       dispatch(changeFavoriteStatus(parseHotelToState(res.data)));
     }).catch((err) => {
@@ -59,7 +59,7 @@ const toggleFavoriteStatus = (offer) => (dispatch, _getState, api) => {
 };
 
 const pushComment = (data, id) => (dispatch, _getState, api) => (
-  api.post(APIRoute.COMMENT + id, data)
+  api.post(`${APIRoute.COMMENTS}/${id}`, data)
     .then(api.get(APIRoute.COMMENT + id)));
 
 const checkAuth = () => (dispatch, _getState, api) => (
