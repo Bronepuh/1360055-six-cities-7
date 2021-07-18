@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {configureStore} from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import createAPI from './services/api';
 import App from './components/app/app';
@@ -9,6 +9,8 @@ import { fetchHotelList, checkAuth } from './store/api-actions';
 import { AuthorizationStatus } from './const';
 import redirect from './store/middlewares/redirect';
 import rootReducer from './store/root-reducer';
+import { Router as BrowserRouter } from 'react-router-dom';
+import browserHistory from './browser-history';
 
 const api = createAPI(
   () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)),
@@ -30,7 +32,9 @@ store.dispatch(fetchHotelList());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter history={browserHistory}>
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),

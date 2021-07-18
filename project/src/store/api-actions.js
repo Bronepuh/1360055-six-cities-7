@@ -60,7 +60,7 @@ const toggleFavoriteStatus = (offer) => (dispatch, _getState, api) => {
 
 const pushComment = (data, id) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.COMMENTS}/${id}`, data)
-    .then(api.get(APIRoute.COMMENT + id)));
+    .then(api.get(`${APIRoute.COMMENTS}/${id}`)));
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)

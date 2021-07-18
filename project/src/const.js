@@ -40,6 +40,8 @@ const commentGet = [{
   },
 }];
 
+const DEFAULT_CITY = 'Paris';
+
 const CITIES = [
   {
     name: 'Paris',
@@ -122,4 +124,4 @@ const APIRoute = {
   FAVORITES: '/favorite',
 };
 
-export { AppRoute, icon, iconActive, commentGet, CITIES, SortType, AuthorizationStatus, APIRoute };
+export { AppRoute, icon, iconActive, commentGet, CITIES, DEFAULT_CITY, SortType, AuthorizationStatus, APIRoute };

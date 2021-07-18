@@ -55,7 +55,6 @@ function Room({ offers }) {
   const handleCommentSubmit = function (data) {
     dispatch(pushComment(data, Number(id)));
     setNewComment(data);
-    dispatch(fetchComments(id));
   };
 
   const handleFavoriteClick = () => {
