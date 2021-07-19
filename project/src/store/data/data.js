@@ -1,8 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { CITIES } from '../../const';
+import { CITIES, DEFAULT_CITY } from '../../const';
 import { selectCity, setOffers, setOfferById, setNearby, setComments, setFavorites, changeFavoriteStatus } from '../action';
-
-const DEFAULT_CITY = 'Paris';
 
 const initialState = {
   activeCity: DEFAULT_CITY,
