@@ -1,14 +1,17 @@
 import { React } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { Link, useHistory } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { getStarRating } from '../../common';
 import offerType from '../../prop-types/offer.type';
 import Spinner from '../spinner/spinner';
 import { toggleFavoriteStatus } from '../../store/api-actions';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAuthorizationStatus } from '../../store/user/selectors';
 
 function Card({ offer, onListHover }) {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const history = useHistory();
 
   const dispatch = useDispatch();
 
@@ -23,7 +26,11 @@ function Card({ offer, onListHover }) {
     };
 
     const handleFavoriteClick = () => {
-      dispatch(toggleFavoriteStatus(offer));
+      if (authorizationStatus !== AuthorizationStatus.AUTH) {
+        history.push(AppRoute.SIGN_IN);
+      } else {
+        dispatch(toggleFavoriteStatus(offer));
+      }
     };
 
     return (

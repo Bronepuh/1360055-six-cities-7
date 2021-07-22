@@ -1,21 +1,25 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
-import {Router} from 'react-router-dom';
-import {createMemoryHistory} from 'history';
+import { render, screen } from '@testing-library/react';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import userEvent from '@testing-library/user-event';
 import SignIn from './sign-in';
+import { AuthorizationStatus } from '../../const';
 
 const mockStore = configureStore({});
+const store = mockStore({
+  USER: { authorizationStatus: AuthorizationStatus.NO_AUTH },
+});
 
 describe('Component: SignIn', () => {
   it('should render "SignIn" when user navigate to "login" url', () => {
     const history = createMemoryHistory();
-    history.push('/login');
+    history.push('/login/');
 
     render(
-      <Provider store={mockStore({})}>
+      <Provider store={store}>
         <Router history={history}>
           <SignIn />
         </Router>

@@ -36,7 +36,7 @@ function App() {
       <PrivateRoute
         exact
         path={AppRoute.FAVORITES}
-        render={() => <Favorites offers={offers} />}
+        render={() => <Favorites offers={offers} authorizationStatus={authorizationStatus}/>}
       />
       <Route exact path={AppRoute.ROOM_$ID}>
         <Room offers={offers} />

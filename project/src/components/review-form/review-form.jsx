@@ -2,7 +2,7 @@ import { React, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 function ReviewForm({ onCommentSubmit }) {
-  const [review, setReview] = useState();
+  const [review, setReview] = useState('');
   const [rating, setSetRating] = useState(0);
   const commentRef = useRef();
   const ratingRef = useRef();
@@ -116,7 +116,12 @@ function ReviewForm({ onCommentSubmit }) {
         <p className='reviews__help'>
           To submit review please make sure to set <span className='reviews__star'>rating</span> and describe your stay with at least <b className='reviews__text-amount'>50 characters</b>.
         </p>
-        <button className='reviews__submit form__submit button' type='submit' disabled=''>Submit</button>
+        {review.length < 50 && review.length > 300 && !rating.length &&
+          <button className='reviews__submit form__submit button' type='submit' disabled='true'>Submit</button>}
+
+        {review.length > 50 && review.length < 300 && rating.length &&
+          <button className='reviews__submit form__submit button' type='submit'>Submit</button>}
+
       </div>
     </form>);
 }

@@ -58,10 +58,6 @@ const toggleFavoriteStatus = (offer) => (dispatch, _getState, api) => {
     });
 };
 
-const pushComment = (data, id) => (dispatch, _getState, api) => (
-  api.post(`${APIRoute.COMMENTS}/${id}`, data)
-    .then(api.get(`${APIRoute.COMMENTS}/${id}`)));
-
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
@@ -73,12 +69,14 @@ const login = ({ login: email, password }) => (dispatch, _getState, api) => (
     .then((res) => localStorage.setItem('token', res.data.token))
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(redirectToRoute(AppRoute.FAVORITES)))
+    .then(() => window.location.reload())
 );
 
 const logout = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))
     .then(() => dispatch(closeSession()))
+    .then(() => window.location.reload())
 );
 
-export { fetchHotelList, checkAuth, login, logout, fetchHotelItem, fetchNearby, fetchComments, fetchFavorites, toggleFavoriteStatus, pushComment };
+export { fetchHotelList, checkAuth, login, logout, fetchHotelItem, fetchNearby, fetchComments, fetchFavorites, toggleFavoriteStatus };
