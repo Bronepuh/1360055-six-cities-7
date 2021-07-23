@@ -22,7 +22,6 @@ function WelcomeScreen({ offers }) {
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [newSortType, setNewSortType] = useState(SortType.POPULAR);
   const markerFlag = true;
-
   const activeCity = useSelector(getActiveCity);
   const cities = useSelector(getCities);
   const isDataLoaded = useSelector(getIsDataLoaded);
