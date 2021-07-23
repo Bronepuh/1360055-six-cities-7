@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 import createAPI from '../services/api';
 import { ActionType } from './action';
-import { fetchHotelList, checkAuth, login, fetchHotelItem, fetchNearby, fetchComments, fetchFavorites, pushComment } from './api-actions';
+import { fetchHotelList, checkAuth, login, fetchHotelItem, fetchNearby, fetchComments, fetchFavorites } from './api-actions';
 import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { parseHotelsToState, parseHotelToState, parseCommentsToState } from '../common';
 
@@ -61,86 +61,86 @@ describe('Async operations', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const offers = [{
-      bedrooms: 3,
-      city:
+      'bedrooms': 3,
+      'city':
       {
-        location:
+        'location':
         {
-          latitude: 48.85661,
-          longitude: 2.351499,
-          zoom: 13,
+          'latitude': 48.85661,
+          'longitude': 2.351499,
+          'zoom': 13,
         },
-        name: 'Paris',
+        'name': 'Paris',
       },
-      description: 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
-      goods:
+      'description': 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
+      'goods':
         ['Towels', 'Fridge', 'Air conditioning', 'Washing machine', 'Breakfast', 'Dishwasher', 'Laptop friendly workspace', 'Coffee machine', 'Washer', 'Baby seat'],
-      host:
+      'host':
       {
         'avatar_url': 'img/avatar-angelina.jpg',
-        id: 25,
+        'id': 25,
         'is_pro': true,
         name: 'Angelina',
       },
-      id: 1,
-      images:
+      'id': 1,
+      'images':
         ['https://7.react.pages.academy/static/hotel/12.jpg', 'https://7.react.pages.academy/static/hotel/18.jpg', 'https://7.react.pages.academy/static/hotel/20.jpg', 'https://7.react.pages.academy/static/hotel/13.jpg', 'https://7.react.pages.academy'],
 
       'is_favorite': false,
       'is_premium': false,
-      location:
+      'location':
       {
-        latitude: 48.83961,
-        longitude: 2.342499,
-        zoom: 16,
+        'latitude': 48.83961,
+        'longitude': 2.342499,
+        'zoom': 16,
       },
       'max_adults': 8,
       'preview_image': 'https://7.react.pages.academy/static/hotel/15.jpg',
-      price: 291,
-      rating: 4.3,
-      title: 'Penthouse, 4-5 rooms + 5 balconies',
-      type: 'hotel',
+      'price': 291,
+      'rating': 4.3,
+      'title': 'Penthouse, 4-5 rooms + 5 balconies',
+      'type': 'hotel',
     },
     {
-      bedrooms: 3,
-      city:
+      'bedrooms': 3,
+      'city':
       {
-        location:
+        'location':
         {
-          latitude: 48.85661,
-          longitude: 2.351499,
-          zoom: 13,
+          'latitude': 48.85661,
+          'longitude': 2.351499,
+          'zoom': 13,
         },
-        name: 'Paris',
+        'name': 'Paris',
       },
-      description: 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
-      goods:
+      'description': 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
+      'goods':
         ['Towels', 'Fridge', 'Air conditioning', 'Washing machine', 'Breakfast', 'Dishwasher', 'Laptop friendly workspace', 'Coffee machine', 'Washer', 'Baby seat'],
-      host:
+      'host':
       {
         'avatar_url': 'img/avatar-angelina.jpg',
-        id: 25,
+        'id': 25,
         'is_pro': true,
-        name: 'Angelina',
+        'name': 'Angelina',
       },
-      id: 1,
-      images:
+      'id': 1,
+      'images':
         ['https://7.react.pages.academy/static/hotel/12.jpg', 'https://7.react.pages.academy/static/hotel/18.jpg', 'https://7.react.pages.academy/static/hotel/20.jpg', 'https://7.react.pages.academy/static/hotel/13.jpg', 'https://7.react.pages.academy'],
 
       'is_favorite': false,
       'is_premium': false,
-      location:
+      'location':
       {
-        latitude: 48.83961,
-        longitude: 2.342499,
-        zoom: 16,
+        'latitude': 48.83961,
+        'longitude': 2.342499,
+        'zoom': 16,
       },
       'max_adults': 8,
       'preview_image': 'https://7.react.pages.academy/static/hotel/15.jpg',
-      price: 291,
-      rating: 4.3,
-      title: 'Penthouse, 4-5 rooms + 5 balconies',
-      type: 'hotel',
+      'price': 291,
+      'rating': 4.3,
+      'title': 'Penthouse, 4-5 rooms + 5 balconies',
+      'type': 'hotel',
     }];
 
     const fetchHotelsLoader = fetchHotelList();
@@ -163,45 +163,45 @@ describe('Async operations', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const offer = {
-      bedrooms: 3,
-      city:
+      'bedrooms': 3,
+      'city':
       {
-        location:
+        'location':
         {
-          latitude: 48.85661,
-          longitude: 2.351499,
-          zoom: 13,
+          'latitude': 48.85661,
+          'longitude': 2.351499,
+          'zoom': 13,
         },
-        name: 'Paris',
+        'name': 'Paris',
       },
-      description: 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
-      goods:
+      'description': 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
+      'goods':
         ['Towels', 'Fridge', 'Air conditioning', 'Washing machine', 'Breakfast', 'Dishwasher', 'Laptop friendly workspace', 'Coffee machine', 'Washer', 'Baby seat'],
-      host:
+      'host':
       {
         'avatar_url': 'img/avatar-angelina.jpg',
-        id: 25,
+        'id': 25,
         'is_pro': true,
-        name: 'Angelina',
+        'name': 'Angelina',
       },
-      id: 1,
-      images:
+      'id': 1,
+      'images':
         ['https://7.react.pages.academy/static/hotel/12.jpg', 'https://7.react.pages.academy/static/hotel/18.jpg', 'https://7.react.pages.academy/static/hotel/20.jpg', 'https://7.react.pages.academy/static/hotel/13.jpg', 'https://7.react.pages.academy'],
 
       'is_favorite': false,
       'is_premium': false,
-      location:
+      'location':
       {
-        latitude: 48.83961,
-        longitude: 2.342499,
-        zoom: 16,
+        'latitude': 48.83961,
+        'longitude': 2.342499,
+        'zoom': 16,
       },
       'max_adults': 8,
       'preview_image': 'https://7.react.pages.academy/static/hotel/15.jpg',
-      price: 291,
-      rating: 4.3,
-      title: 'Penthouse, 4-5 rooms + 5 balconies',
-      type: 'hotel',
+      'price': 291,
+      'rating': 4.3,
+      'title': 'Penthouse, 4-5 rooms + 5 balconies',
+      'type': 'hotel',
     };
 
     const id = 1;
@@ -225,86 +225,86 @@ describe('Async operations', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const offers = [{
-      bedrooms: 3,
-      city:
+      'bedrooms': 3,
+      'city':
       {
-        location:
+        'location':
         {
-          latitude: 48.85661,
-          longitude: 2.351499,
-          zoom: 13,
+          'latitude': 48.85661,
+          'longitude': 2.351499,
+          'zoom': 13,
         },
-        name: 'Paris',
+        'name': 'Paris',
       },
-      description: 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
-      goods:
+      'description': 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
+      'goods':
         ['Towels', 'Fridge', 'Air conditioning', 'Washing machine', 'Breakfast', 'Dishwasher', 'Laptop friendly workspace', 'Coffee machine', 'Washer', 'Baby seat'],
-      host:
+      'host':
       {
         'avatar_url': 'img/avatar-angelina.jpg',
-        id: 25,
+        'id': 25,
         'is_pro': true,
-        name: 'Angelina',
+        'name': 'Angelina',
       },
-      id: 1,
-      images:
+      'id': 1,
+      'images':
         ['https://7.react.pages.academy/static/hotel/12.jpg', 'https://7.react.pages.academy/static/hotel/18.jpg', 'https://7.react.pages.academy/static/hotel/20.jpg', 'https://7.react.pages.academy/static/hotel/13.jpg', 'https://7.react.pages.academy'],
 
       'is_favorite': false,
       'is_premium': false,
-      location:
+      'location':
       {
-        latitude: 48.83961,
-        longitude: 2.342499,
-        zoom: 16,
+        'latitude': 48.83961,
+        'longitude': 2.342499,
+        'zoom': 16,
       },
       'max_adults': 8,
       'preview_image': 'https://7.react.pages.academy/static/hotel/15.jpg',
-      price: 291,
-      rating: 4.3,
-      title: 'Penthouse, 4-5 rooms + 5 balconies',
-      type: 'hotel',
+      'price': 291,
+      'rating': 4.3,
+      'title': 'Penthouse, 4-5 rooms + 5 balconies',
+      'type': 'hotel',
     },
     {
-      bedrooms: 3,
-      city:
+      'bedrooms': 3,
+      'city':
       {
-        location:
+        'location':
         {
-          latitude: 48.85661,
-          longitude: 2.351499,
-          zoom: 13,
+          'latitude': 48.85661,
+          'longitude': 2.351499,
+          'zoom': 13,
         },
-        name: 'Paris',
+        'name': 'Paris',
       },
-      description: 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
-      goods:
+      'description': 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
+      'goods':
         ['Towels', 'Fridge', 'Air conditioning', 'Washing machine', 'Breakfast', 'Dishwasher', 'Laptop friendly workspace', 'Coffee machine', 'Washer', 'Baby seat'],
-      host:
+      'host':
       {
         'avatar_url': 'img/avatar-angelina.jpg',
-        id: 25,
+        'id': 25,
         'is_pro': true,
-        name: 'Angelina',
+        'name': 'Angelina',
       },
-      id: 1,
-      images:
+      'id': 1,
+      'images':
         ['https://7.react.pages.academy/static/hotel/12.jpg', 'https://7.react.pages.academy/static/hotel/18.jpg', 'https://7.react.pages.academy/static/hotel/20.jpg', 'https://7.react.pages.academy/static/hotel/13.jpg', 'https://7.react.pages.academy'],
 
       'is_favorite': false,
       'is_premium': false,
-      location:
+      'location':
       {
-        latitude: 48.83961,
-        longitude: 2.342499,
-        zoom: 16,
+        'latitude': 48.83961,
+        'longitude': 2.342499,
+        'zoom': 16,
       },
       'max_adults': 8,
       'preview_image': 'https://7.react.pages.academy/static/hotel/15.jpg',
-      price: 291,
-      rating: 4.3,
-      title: 'Penthouse, 4-5 rooms + 5 balconies',
-      type: 'hotel',
+      'price': 291,
+      'rating': 4.3,
+      'title': 'Penthouse, 4-5 rooms + 5 balconies',
+      'type': 'hotel',
     }];
 
     const id = 1;
@@ -328,86 +328,86 @@ describe('Async operations', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const offers = [{
-      bedrooms: 3,
-      city:
+      'bedrooms': 3,
+      'city':
       {
-        location:
+        'location':
         {
-          latitude: 48.85661,
-          longitude: 2.351499,
-          zoom: 13,
+          'latitude': 48.85661,
+          'longitude': 2.351499,
+          'zoom': 13,
         },
-        name: 'Paris',
+        'name': 'Paris',
       },
-      description: 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
-      goods:
+      'description': 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
+      'goods':
         ['Towels', 'Fridge', 'Air conditioning', 'Washing machine', 'Breakfast', 'Dishwasher', 'Laptop friendly workspace', 'Coffee machine', 'Washer', 'Baby seat'],
-      host:
+      'host':
       {
         'avatar_url': 'img/avatar-angelina.jpg',
-        id: 25,
+        'id': 25,
         'is_pro': true,
-        name: 'Angelina',
+        'name': 'Angelina',
       },
-      id: 1,
-      images:
+      'id': 1,
+      'images':
         ['https://7.react.pages.academy/static/hotel/12.jpg', 'https://7.react.pages.academy/static/hotel/18.jpg', 'https://7.react.pages.academy/static/hotel/20.jpg', 'https://7.react.pages.academy/static/hotel/13.jpg', 'https://7.react.pages.academy'],
 
       'is_favorite': false,
       'is_premium': false,
-      location:
+      'location':
       {
-        latitude: 48.83961,
-        longitude: 2.342499,
-        zoom: 16,
+        'latitude': 48.83961,
+        'longitude': 2.342499,
+        'zoom': 16,
       },
       'max_adults': 8,
       'preview_image': 'https://7.react.pages.academy/static/hotel/15.jpg',
-      price: 291,
-      rating: 4.3,
-      title: 'Penthouse, 4-5 rooms + 5 balconies',
-      type: 'hotel',
+      'price': 291,
+      'rating': 4.3,
+      'title': 'Penthouse, 4-5 rooms + 5 balconies',
+      'type': 'hotel',
     },
     {
-      bedrooms: 3,
-      city:
+      'bedrooms': 3,
+      'city':
       {
-        location:
+        'location':
         {
-          latitude: 48.85661,
-          longitude: 2.351499,
-          zoom: 13,
+          'latitude': 48.85661,
+          'longitude': 2.351499,
+          'zoom': 13,
         },
-        name: 'Paris',
+        'name': 'Paris',
       },
-      description: 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
-      goods:
+      'description': 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
+      'goods':
         ['Towels', 'Fridge', 'Air conditioning', 'Washing machine', 'Breakfast', 'Dishwasher', 'Laptop friendly workspace', 'Coffee machine', 'Washer', 'Baby seat'],
-      host:
+      'host':
       {
         'avatar_url': 'img/avatar-angelina.jpg',
-        id: 25,
+        'id': 25,
         'is_pro': true,
-        name: 'Angelina',
+        'name': 'Angelina',
       },
-      id: 1,
-      images:
+      'id': 1,
+      'images':
         ['https://7.react.pages.academy/static/hotel/12.jpg', 'https://7.react.pages.academy/static/hotel/18.jpg', 'https://7.react.pages.academy/static/hotel/20.jpg', 'https://7.react.pages.academy/static/hotel/13.jpg', 'https://7.react.pages.academy'],
 
       'is_favorite': false,
       'is_premium': false,
-      location:
+      'location':
       {
-        latitude: 48.83961,
-        longitude: 2.342499,
-        zoom: 16,
+        'latitude': 48.83961,
+        'longitude': 2.342499,
+        'zoom': 16,
       },
       'max_adults': 8,
       'preview_image': 'https://7.react.pages.academy/static/hotel/15.jpg',
-      price: 291,
-      rating: 4.3,
-      title: 'Penthouse, 4-5 rooms + 5 balconies',
-      type: 'hotel',
+      'price': 291,
+      'rating': 4.3,
+      'title': 'Penthouse, 4-5 rooms + 5 balconies',
+      'type': 'hotel',
     }];
 
     const fetchFavoritesLoader = fetchFavorites();
@@ -431,27 +431,27 @@ describe('Async operations', () => {
     const dispatch = jest.fn();
     const comments = [
       {
-        comment: 'We loved it so much, the house, the veiw, the location just great.. Highly reccomend :)',
-        date: '2021-06-30T16:51:35.215Z',
-        id: 1,
-        rating: 3,
-        user: {
+        'comment': 'We loved it so much, the house, the veiw, the location just great.. Highly reccomend :)',
+        'date': '2021-06-30T16:51:35.215Z',
+        'id': 1,
+        'rating': 3,
+        'user': {
           'avatar_url': 'https://7.react.pages.academy/static/avatar/7.jpg',
-          id: 16,
+          'id': 16,
           'is_pro': true,
-          name: 'Mollie',
+          'name': 'Mollie',
         },
       },
       {
-        comment: 'We loved it so much, the house, the veiw, the location just great.. Highly reccomend :)',
-        date: '2021-06-30T16:51:35.215Z',
-        id: 2,
-        rating: 5,
-        user: {
+        'comment': 'We loved it so much, the house, the veiw, the location just great.. Highly reccomend :)',
+        'date': '2021-06-30T16:51:35.215Z',
+        'id': 2,
+        'rating': 5,
+        'user': {
           'avatar_url': 'https://7.react.pages.academy/static/avatar/7.jpg',
-          id: 17,
+          'id': 17,
           'is_pro': true,
-          name: 'Mollie',
+          'name': 'Mollie',
         },
       },
     ];
@@ -472,22 +472,4 @@ describe('Async operations', () => {
         });
       });
   });
-
-  it('should make a correct API call to POST /comment', () => {
-    const apiMock = new MockAdapter(api);
-    const dispatch = jest.fn();
-    const fakeComment = { comment: 'test', rating: 4 };
-    const id = 1;
-    const pushCommentLoader = pushComment(fakeComment, id);
-
-    apiMock
-      .onPost(`${APIRoute.COMMENTS}/${id}`, fakeComment)
-      .reply(200, [{ fake: true }]);
-
-    return pushCommentLoader(dispatch, () => { }, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(0);
-      });
-  });
-
 });

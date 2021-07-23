@@ -13,18 +13,21 @@ import { sortByType } from '../../common';
 import { SortType } from '../../const';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getActiveCity, getCities, getIsDataLoaded } from '../../store/data/selectors';
 import { getAuthorizationStatus } from '../../store/user/selectors';
+import { logout } from '../../store/api-actions';
 
 function WelcomeScreen({ offers }) {
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [newSortType, setNewSortType] = useState(SortType.POPULAR);
+  const markerFlag = true;
 
   const activeCity = useSelector(getActiveCity);
   const cities = useSelector(getCities);
   const isDataLoaded = useSelector(getIsDataLoaded);
   const authorizationStatus = useSelector(getAuthorizationStatus);
+  const dispatch = useDispatch();
 
   if (!isDataLoaded) {
     return <Spinner />;
@@ -42,6 +45,11 @@ function WelcomeScreen({ offers }) {
     setSelectedPoint(offer);
   };
 
+  const handleLogout = function (evt) {
+    evt.preventDefault();
+    dispatch(logout());
+  };
+
   return (
     <div className='page page--gray page--main' id='root'>
       <header className='header'>
@@ -56,10 +64,16 @@ function WelcomeScreen({ offers }) {
               <ul className='header__nav-list'>
                 {authorizationStatus === AuthorizationStatus.AUTH &&
                   <li className='header__nav-item user'>
-                    <a className='header__nav-link header__nav-link--profile' href='#'>
+                    <Link className='header__nav-link header__nav-link--profile' to={AppRoute.FAVORITES}>
                       <div className='header__avatar-wrapper user__avatar-wrapper'>
                       </div>
                       <span className='header__user-name user__name'>Oliver.conner@gmail.com</span>
+                    </Link>
+                  </li>}
+                {authorizationStatus === AuthorizationStatus.AUTH &&
+                  <li className='header__nav-item'>
+                    <a className='header__nav-link' onClick={handleLogout} href='#'>
+                      <span className='header__signout'>Sign out</span>
                     </a>
                   </li>}
 
@@ -95,7 +109,7 @@ function WelcomeScreen({ offers }) {
               <MainEmpty />}
             <div className='cities__right-section'>
               <section className='cities__map' id="map">
-                <Map city={currentCity} offers={offers} currentOffers={offersByCity} selectedPoint={selectedPoint} />
+                <Map city={currentCity} offers={offers} currentOffers={offersByCity} selectedPoint={selectedPoint} markerFlag={markerFlag}/>
               </section>
             </div>
           </div>

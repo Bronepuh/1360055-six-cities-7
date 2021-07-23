@@ -1,12 +1,18 @@
 import React, { useRef } from 'react';
 import { login } from '../../store/api-actions';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAuthorizationStatus } from '../../store/user/selectors';
+import { isCheckedAuth } from '../../common';
+import Spinner from '../spinner/spinner';
 
 function SignIn() {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
   const loginRef = useRef();
   const passwordRef = useRef();
+  // const history = useHistory();
 
   const dispatch = useDispatch();
 
@@ -17,6 +23,16 @@ function SignIn() {
       password: passwordRef.current.value,
     }));
   };
+
+  if (isCheckedAuth(authorizationStatus)) {
+    return <Spinner />;
+  }
+
+  if (authorizationStatus === AuthorizationStatus.AUTH) {
+    return (
+      <Redirect to={AppRoute.MAIN} />
+    );
+  }
 
   return (
     <div className="page page--gray page--login">
@@ -30,12 +46,10 @@ function SignIn() {
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__login">Sign in</span>
-                  </a>
+                <li className='header__nav-item'>
+                  <Link className='header__nav-link' to={AppRoute.SIGN_IN}>
+                    <span className='header__signout'>Sign in</span>
+                  </Link>
                 </li>
               </ul>
             </nav>

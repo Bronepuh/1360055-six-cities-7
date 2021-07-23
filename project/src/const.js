@@ -124,4 +124,6 @@ const APIRoute = {
   FAVORITES: '/favorite',
 };
 
-export { AppRoute, icon, iconActive, commentGet, CITIES, DEFAULT_CITY, SortType, AuthorizationStatus, APIRoute };
+const smartObj = new Map();
+
+export { AppRoute, icon, iconActive, commentGet, CITIES, DEFAULT_CITY, SortType, AuthorizationStatus, APIRoute, smartObj };

@@ -3,43 +3,60 @@ import offerType from '../../prop-types/offer.type';
 import { PropTypes } from 'prop-types';
 import ReviewForm from '../review-form/review-form';
 import ReviewList from '../review-list/review-list';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 import { getStarRating } from '../../common';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus, APIRoute } from '../../const';
 import Spinner from '../spinner/spinner';
 import Map from '../../components/map/map';
 import Offers from '../offers/offers';
 import { getLocationByName } from '../../common';
-import { fetchHotelItem, fetchNearby, fetchComments, pushComment, toggleFavoriteStatus } from '../../store/api-actions';
+import { fetchHotelItem, fetchNearby, fetchComments, toggleFavoriteStatus, logout } from '../../store/api-actions';
 import { PropertyGallery } from '../property-gallery/property-gallery';
 import { useSelector, useDispatch } from 'react-redux';
 import { getActiveCity, getCities, getNearby, getComments, getIsDataNearbyLoaded, getIsDataCommentsLoaded } from '../../store/data/selectors';
 import { getAuthorizationStatus } from '../../store/user/selectors';
+import createAPI from '../../services/api';
 
 const getOffer = (SomeOffers, offerId) => SomeOffers.find((offer) => offer.id === offerId);
+
+const MAX_REVIEWS_COUNT = 10;
+
+const getFilteredReviews = (reviews) => {
+  if (reviews.length) {
+    const arrayForSort = [...reviews];
+    const sortedReviews = arrayForSort.sort((reviewA, reviewB) => new Date(reviewB.date) - new Date(reviewA.date));
+    return sortedReviews.slice(0, MAX_REVIEWS_COUNT);
+  }
+};
 
 function Room({ offers }) {
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [newComment, setNewComment] = useState({ comment: '', rating: '' });
-  const { id } = useParams();
+  const [newReqStatus, setNewReqStatus] = useState({ isLoading: false, success: false, error: false });
 
-  const currentOffer = getOffer(offers, Number(id));
+  const params = useParams();
+  const history = useHistory();
+  const api = createAPI();
+
+  const currentOffer = getOffer(offers, Number(params.id));
   const activeCity = useSelector(getActiveCity);
   const cities = useSelector(getCities);
   const comments = useSelector(getComments);
+  const reviews = getFilteredReviews(comments);
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const nearby = useSelector(getNearby);
+
   const isDataNearbyLoaded = useSelector(getIsDataNearbyLoaded);
   const isDataCommentsLoaded = useSelector(getIsDataCommentsLoaded);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchHotelItem(id));
-    dispatch(fetchNearby(id));
-    dispatch(fetchComments(id));
-  }, [id, comments.length, newComment]);
+    dispatch(fetchHotelItem(params.id));
+    dispatch(fetchNearby(params.id));
+    dispatch(fetchComments(params.id));
+  }, [params.id, comments.length, newComment]);
 
-  if (!id || !offers.length) {
+  if (!params.id || !offers.length) {
     return <Spinner />;
   }
 
@@ -53,12 +70,40 @@ function Room({ offers }) {
   );
 
   const handleCommentSubmit = function (data) {
-    dispatch(pushComment(data, Number(id)));
-    setNewComment(data);
+    setNewReqStatus({
+      isLoading: true,
+      success: false,
+      error: false,
+    });
+
+    api.post(`${APIRoute.COMMENTS}/${params.id}`, data)
+      .then(() => {
+        setNewComment(data);
+        setNewReqStatus({
+          isLoading: false,
+          success: true,
+          error: false,
+        });
+      }).catch(() => {
+        setNewReqStatus({
+          isLoading: false,
+          success: false,
+          error: true,
+        });
+      });
   };
 
   const handleFavoriteClick = () => {
-    dispatch(toggleFavoriteStatus(currentOffer));
+    if (authorizationStatus !== AuthorizationStatus.AUTH) {
+      history.push(AppRoute.SIGN_IN);
+    } else {
+      dispatch(toggleFavoriteStatus(currentOffer));
+    }
+  };
+
+  const handleLogout = function (evt) {
+    evt.preventDefault();
+    dispatch(logout());
   };
 
   return (
@@ -73,18 +118,26 @@ function Room({ offers }) {
             </div>
             <nav className='header__nav'>
               <ul className='header__nav-list'>
-                <li className='header__nav-item user'>
-                  <a className='header__nav-link header__nav-link--profile' href='#'>
-                    <div className='header__avatar-wrapper user__avatar-wrapper'>
-                    </div>
-                    <span className='header__user-name user__name'>Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-                <li className='header__nav-item'>
-                  <a className='header__nav-link' href='#'>
-                    <span className='header__signout'>Sign out</span>
-                  </a>
-                </li>
+                {authorizationStatus === AuthorizationStatus.AUTH &&
+                  <li className='header__nav-item user'>
+                    <Link className='header__nav-link header__nav-link--profile' to={AppRoute.FAVORITES}>
+                      <div className='header__avatar-wrapper user__avatar-wrapper'>
+                      </div>
+                      <span className='header__user-name user__name'>Oliver.conner@gmail.com</span>
+                    </Link>
+                  </li>}
+                {authorizationStatus === AuthorizationStatus.AUTH &&
+                  <li className='header__nav-item'>
+                    <a className='header__nav-link' onClick={handleLogout} href='#'>
+                      <span className='header__signout'>Sign out</span>
+                    </a>
+                  </li>}
+                {authorizationStatus === AuthorizationStatus.NO_AUTH &&
+                  <li className='header__nav-item'>
+                    <Link className='header__nav-link' to={AppRoute.SIGN_IN}>
+                      <span className='header__signout'>Sign in</span>
+                    </Link>
+                  </li>}
               </ul>
             </nav>
           </div>
@@ -166,8 +219,10 @@ function Room({ offers }) {
               {isDataCommentsLoaded &&
                 <section className='property__reviews reviews'>
                   <h2 className='reviews__title'>Reviews &middot; <span className='reviews__amount'>{comments.length}</span></h2>
-                  <ReviewList comments={comments} />
-                  {authorizationStatus === AuthorizationStatus.AUTH &&
+                  <ReviewList comments={reviews} />
+                  {newReqStatus.error === true &&
+                    <div style={{ color: 'red', textAlign: 'center', marginBottom: '20px' }}>something went wrong, please try again...</div>}
+                  {authorizationStatus === AuthorizationStatus.AUTH && newReqStatus.isLoading === false &&
                     <ReviewForm onCommentSubmit={handleCommentSubmit} />}
                 </section>}
             </div>
@@ -176,7 +231,7 @@ function Room({ offers }) {
             {!isDataNearbyLoaded &&
               <Spinner />}
             {isDataNearbyLoaded &&
-              <Map city={currentCity} currentOffers={nearby} selectedPoint={selectedPoint} />}
+              <Map city={currentCity} currentOffers={nearby} selectedPoint={selectedPoint} currentOffer={currentOffer} />}
           </section>
         </section>
         <div className='container'>

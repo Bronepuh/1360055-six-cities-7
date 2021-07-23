@@ -6,6 +6,7 @@ const ActionType = {
   SET_OFFER_BY_ID: 'main/setOfferById',
   SET_NEARBY: 'main/setNearby',
   SET_COMMENTS: 'main/setComments',
+  PUSH_COMMENT: 'main/pushComments',
   SET_FAVORITES: 'main/setFavorites',
   CHANGE_FAVORITE_STATUS: 'main/changeFavoriteStatus',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',

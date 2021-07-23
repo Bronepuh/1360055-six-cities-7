@@ -17,7 +17,7 @@ describe('Application Routing', () => {
 
     const createFakeStore = configureStore({});
     store = createFakeStore({
-      USER: {authorizationStatus: AuthorizationStatus.AUTH},
+      USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
       DATA: {
         cities: CITIES,
         activeCity: 'Paris',
