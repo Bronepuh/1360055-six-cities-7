@@ -12,7 +12,6 @@ function SignIn() {
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const loginRef = useRef();
   const passwordRef = useRef();
-  // const history = useHistory();
 
   const dispatch = useDispatch();
 
